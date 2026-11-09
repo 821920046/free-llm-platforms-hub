@@ -226,6 +226,82 @@ footer{
   padding:24px;border:1px dashed var(--border);border-radius:var(--radius);background:var(--card);
 }
 .empty[hidden]{display:none;}
+/* ===== 厂商卡册 ===== */
+.album{
+  max-width:1080px;margin:32px auto 0;padding:18px 20px 14px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;box-shadow:0 8px 24px rgba(30,41,59,.05);
+}
+.album-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.album-head h2{font-size:19px;}
+.album-head .progress{font-size:13px;color:var(--muted);}
+.album-head .progress b{color:var(--primary);font-size:15px;}
+.album-tray{background:#eef2f7;border:1px solid #e2e8f0;border-radius:14px;padding:14px 12px 12px;}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:9px;}
+.mini{
+  position:relative;height:118px;border-radius:10px;
+  background:linear-gradient(160deg,#fdfcf8,#f4f1e9);
+  border:2px solid var(--tier,#cbd5e1);
+  padding:7px 6px 6px;display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.mini:hover{transform:translateY(-3px);box-shadow:0 8px 16px rgba(30,41,59,.16);z-index:3;}
+.mini .quota{
+  font-size:10.5px;font-weight:700;color:#475569;align-self:flex-start;
+  line-height:1.3;max-width:100%;padding-right:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mini .gems{position:absolute;top:6px;right:6px;font-size:8px;letter-spacing:-1px;color:#d97706;}
+.mini .logo{
+  width:38px;height:38px;border-radius:11px;margin:9px 0 5px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:-.5px;
+  background:var(--brand,#6366f1);box-shadow:0 3px 8px rgba(30,41,59,.16);
+}
+.mini .name{font-size:11px;font-weight:600;color:#334155;text-align:center;line-height:1.25;}
+.mini .stack{
+  position:absolute;right:-6px;bottom:-7px;background:#fff;
+  border:1px solid var(--border);border-radius:999px;padding:1px 7px;
+  font-size:10px;font-weight:700;color:#475569;box-shadow:0 2px 5px rgba(30,41,59,.12);
+}
+.mini .check{
+  position:absolute;left:-6px;top:-7px;width:19px;height:19px;border-radius:50%;
+  border:1px solid var(--border);background:#fff;color:#94a3b8;
+  font-size:11px;line-height:17px;text-align:center;padding:0;cursor:pointer;
+}
+.mini.collected .check{background:var(--free);border-color:var(--free);color:#fff;}
+.mini.dim{filter:grayscale(.85);opacity:.62;border-style:dashed;}
+.mini.dim:hover{filter:none;opacity:1;}
+.mini.t3{
+  border-color:transparent;
+  background:linear-gradient(160deg,#fdfcf8,#f4f1e9) padding-box,
+              linear-gradient(135deg,#f59e0b,#ec4899,#22d3ee,#a78bfa) border-box;
+}
+.mini.t2{border-color:#38bdf8;}
+.mini.t1{border-color:#cbd5e1;}
+.album-foot{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:12px;}
+.album-foot .dot{width:7px;height:7px;border-radius:999px;background:#cbd5e1;}
+.album-foot .dot.on{width:18px;background:#0f766e;}
+.album-legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted);}
+.album-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+/* ===== 模型排行榜 ===== */
+.rank-num{font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;}
+.rank-num.top1{color:#d97706;}
+.rank-num.top2{color:#64748b;}
+.rank-num.top3{color:#b45309;}
+.model-name{font-weight:600;}
+.maker{font-size:12px;color:var(--muted);}
+.oss,.cn-flag{font-size:10px;padding:1px 6px;border-radius:5px;margin-left:6px;white-space:nowrap;}
+.oss{background:rgba(22,163,74,.10);color:var(--free);border:1px solid rgba(22,163,74,.3);}
+.cn-flag{background:rgba(234,88,12,.08);color:var(--cn);border:1px solid rgba(234,88,12,.25);}
+th.sortable{cursor:pointer;user-select:none;}
+th.sortable:hover{color:var(--primary);}
+th.sortable::after{content:" ⇅";font-size:10px;opacity:.5;}
+tr.rank-row.hidden{display:none;}
+@media (max-width:640px){
+  .album{padding:14px 12px;}
+  .album-grid{grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:7px;}
+  .mini{height:110px;}
+}
 @media (max-width:640px){
   .hero h1{font-size:26px;}
   .hero{padding:52px 16px 84px;}
@@ -239,7 +315,7 @@ footer{
 <body>
 <header class="hero">
   <h1>免费大模型平台导航</h1>
-  <p>精选国内外 14 个可免费接入的大模型 API 平台，以及 15 项可定期领取的免费额度：适用模型、限制条件、核实日期、能力评分一次看清。</p>
+  <p>14 个可免费接入的大模型 API 平台、15 项可领取额度、22 张厂商卡册与 TOP 20 模型排行榜：适用模型、限制条件、核实日期、实测评分一次看清。</p>
   <div class="stamp">数据参考 AIHOT 模型榜 / Token 羊毛 · 2026-11-09 更新</div>
 </header>
 
@@ -248,7 +324,125 @@ footer{
   <div class="stat"><b>15</b><span>免费额度</span></div>
   <div class="stat"><b>7</b><span>国内平台</span></div>
   <div class="stat"><b>7</b><span>国际平台</span></div>
+  <div class="stat"><b>20</b><span>榜单模型</span></div>
 </section>
+
+<section class="album" id="album">
+  <div class="album-head">
+    <h2>厂商卡册</h2>
+    <span class="progress"><b id="litCount">0</b> / <span id="totalCount">22</span> 张已点亮 · 点卡片筛选该厂商，点左上角圆点记录「已领」</span>
+  </div>
+  <div class="album-tray">
+    <div class="album-grid" id="albumGrid">
+
+      <div class="mini t2" role="button" tabindex="0" data-vendor="硅基流动" style="--brand:#6366f1">
+        <span class="check" title="标记已领">✓</span><span class="quota">¥16 券</span><span class="gems">◆◆</span>
+        <span class="logo">SF</span><span class="name">硅基流动</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="智谱" style="--brand:#2563eb">
+        <span class="check" title="标记已领">✓</span><span class="quota">5000万Token</span><span class="gems">◆◆</span>
+        <span class="logo">GLM</span><span class="name">智谱</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="DeepSeek" style="--brand:#1d4ed8">
+        <span class="check" title="标记已领">✓</span><span class="quota">¥1/百万起</span><span class="gems">◆◆</span>
+        <span class="logo">DS</span><span class="name">DeepSeek</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="腾讯云" style="--brand:#0ea5e9">
+        <span class="check" title="标记已领">✓</span><span class="quota">100万Token</span><span class="gems">◆◆</span>
+        <span class="logo">TX</span><span class="name">腾讯云</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="百度千帆" style="--brand:#dc2626">
+        <span class="check" title="标记已领">✓</span><span class="quota">¥20 券</span><span class="gems">◆◆</span>
+        <span class="logo">BD</span><span class="name">百度千帆</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="讯飞星火" style="--brand:#0284c7">
+        <span class="check" title="标记已领">✓</span><span class="quota">Spark 免费</span><span class="gems">◆◆</span>
+        <span class="logo">XF</span><span class="name">讯飞星火</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="魔搭社区" style="--brand:#ea580c">
+        <span class="check" title="标记已领">✓</span><span class="quota">200 魔粒/天</span><span class="gems">◆◆◆</span>
+        <span class="logo">MS</span><span class="name">魔搭社区</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="OpenRouter" style="--brand:#7c3aed">
+        <span class="check" title="标记已领">✓</span><span class="quota">:free 模型</span><span class="gems">◆◆◆</span>
+        <span class="logo">OR</span><span class="name">OpenRouter</span><span class="stack">×1</span>
+      </div>
+
+      <div class="mini t3" role="button" tabindex="0" data-vendor="Google" style="--brand:#4285f4">
+        <span class="check" title="标记已领">✓</span><span class="quota">Flash 免费</span><span class="gems">◆◆◆</span>
+        <span class="logo">G</span><span class="name">Google</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="Groq" style="--brand:#f97316">
+        <span class="check" title="标记已领">✓</span><span class="quota">免费开发者层</span><span class="gems">◆◆◆</span>
+        <span class="logo">GQ</span><span class="name">Groq</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="Mistral" style="--brand:#f59e0b">
+        <span class="check" title="标记已领">✓</span><span class="quota">Free Tier</span><span class="gems">◆◆◆</span>
+        <span class="logo">M</span><span class="name">Mistral</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="NVIDIA" style="--brand:#16a34a">
+        <span class="check" title="标记已领">✓</span><span class="quota">赠送 Credits</span><span class="gems">◆◆</span>
+        <span class="logo">NV</span><span class="name">NVIDIA</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="AMD" style="--brand:#dc2626">
+        <span class="check" title="标记已领">✓</span><span class="quota">每日免费 API</span><span class="gems">◆◆◆</span>
+        <span class="logo">AMD</span><span class="name">AMD</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="Cloudflare" style="--brand:#f97316">
+        <span class="check" title="标记已领">✓</span><span class="quota">1万 Neurons</span><span class="gems">◆◆◆</span>
+        <span class="logo">CF</span><span class="name">Cloudflare</span><span class="stack">×2</span>
+      </div>
+      <div class="mini t3 dim" role="button" tabindex="0" data-vendor="MiniMax" style="--brand:#7c3aed">
+        <span class="check" title="标记已领">✓</span><span class="quota">400 积分/天</span><span class="gems">◆◆◆</span>
+        <span class="logo">MM</span><span class="name">MiniMax</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3 dim" role="button" tabindex="0" data-vendor="WorkBuddy" style="--brand:#4f46e5">
+        <span class="check" title="标记已领">✓</span><span class="quota">500 积分/月</span><span class="gems">◆◆◆</span>
+        <span class="logo">WB</span><span class="name">WorkBuddy</span><span class="stack">×2</span>
+      </div>
+
+      <div class="mini t2" role="button" tabindex="0" data-vendor="Rime" style="--brand:#0f766e">
+        <span class="check" title="标记已领">✓</span><span class="quota">≈¥334/月</span><span class="gems">◆◆</span>
+        <span class="logo">RM</span><span class="name">Rime</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="EdgeOne" style="--brand:#0284c7">
+        <span class="check" title="标记已领">✓</span><span class="quota">50万Token/月</span><span class="gems">◆◆</span>
+        <span class="logo">EO</span><span class="name">EdgeOne</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t2" role="button" tabindex="0" data-vendor="书生" style="--brand:#4338ca">
+        <span class="check" title="标记已领">✓</span><span class="quota">免费墨点</span><span class="gems">◆◆</span>
+        <span class="logo">SI</span><span class="name">书生·端砚</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t1" role="button" tabindex="0" data-vendor="超算互联网" style="--brand:#0891b2">
+        <span class="check" title="标记已领">✓</span><span class="quota">1000万Token</span><span class="gems">◆</span>
+        <span class="logo">SC</span><span class="name">超算互联网</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t1" role="button" tabindex="0" data-vendor="阿里云百炼" style="--brand:#f97316">
+        <span class="check" title="标记已领">✓</span><span class="quota">100万Token</span><span class="gems">◆</span>
+        <span class="logo">AL</span><span class="name">阿里云百炼</span><span class="stack">×1</span>
+      </div>
+      <div class="mini t3" role="button" tabindex="0" data-vendor="商汤" style="--brand:#e11d48">
+        <span class="check" title="标记已领">✓</span><span class="quota">12万积分/5h</span><span class="gems">◆◆◆</span>
+        <span class="logo">ST</span><span class="name">商汤</span><span class="stack">×1</span>
+      </div>
+
+    </div>
+    <div class="album-foot">
+      <span style="color:#94a3b8;font-size:16px">‹</span>
+      <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      <span style="color:#94a3b8;font-size:16px">›</span>
+    </div>
+  </div>
+  <div class="album-legend">
+    <span><i style="background:linear-gradient(135deg,#f59e0b,#ec4899,#22d3ee)"></i>◆◆◆ 每日可续 / 常驻免费层</span>
+    <span><i style="background:#38bdf8"></i>◆◆ 平台免费层或赠金</span>
+    <span><i style="background:#cbd5e1"></i>◆ 一次性额度</span>
+    <span><i style="background:#94a3b8"></i>灰度 = 限产品内使用（非通用 API）</span>
+    <span>右下 ×N = 本站收录的免费入口数</span>
+    <span>点卡片可筛选该厂商，再点一次取消；「已领」状态仅保存在本机浏览器</span>
+  </div>
+</section>
+
 
 <div class="toolbar">
   <input class="search" id="search" type="search" placeholder="搜索平台、模型或额度，例如 GLM / DeepSeek / 免费 / 代金券">
@@ -520,27 +714,176 @@ footer{
 </div>
 
 <div class="section-head" id="models">
-  <h2>模型能力参考 <span class="cycle month">AIHOT 综合榜</span></h2>
-  <p>评分只采用第三方机构实测成绩（编程 38%、科研 19%、专业办公 19%、知识问答 14%、真人盲选 10%），50 分约为参照模型平均水平，价格不参与排序。下表挑出与免费 / 极低价额度相关的代表模型，方便判断「免费模型大概能干什么」。</p>
+  <h2>模型排行榜 TOP 20 <span class="cycle month">AIHOT 综合榜</span></h2>
+  <p>只采用第三方机构实测成绩，按编程 38%、科研 19%、专业办公 19%、知识问答 14%、真人盲选 10% 加权；50 分约为参照模型平均水平，价格不参与排序。点击「输入价 / 输出价 / 评分」表头可重新排序。</p>
+  <div class="filter-bar" data-scope="rank">
+    <button class="active" data-cat="all">全部 20</button>
+    <button data-cat="cn">国产模型</button>
+    <button data-cat="oss">开源权重</button>
+    <button data-cat="free">与免费额度相关</button>
+  </div>
 </div>
-<div class="src">来源：<a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">aihot.news/leaderboard</a> · 54 项评测 / 16 家机构 · 2026-11-09 20:05 更新 · 价格单位：人民币 / 百万 Token</div>
+<div class="src">来源：<a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">aihot.news/leaderboard</a> · 54 项评测 / 16 家机构 · 2026-11-09 20:05 更新 · 价格：人民币 / 百万 Token（美元按 11-06 汇率折算）</div>
 <section class="table-wrap" style="margin-top:0;">
-  <table>
+  <table id="rankTable">
     <thead>
-      <tr><th>模型</th><th>厂商</th><th>AIHOT 评分</th><th>输入价</th><th>输出价</th><th>与免费额度的关系</th></tr>
+      <tr>
+        <th>#</th><th>模型 / 厂商 / 上线</th><th>评测覆盖</th>
+        <th class="sortable" data-sort="in">输入价</th>
+        <th class="sortable" data-sort="out">输出价</th>
+        <th class="sortable" data-sort="score">AIHOT 评分</th>
+        <th>与免费额度的关系</th>
+      </tr>
     </thead>
-    <tbody>
-      <tr><td>Claude Opus 5.5</td><td>Anthropic</td><td><span class="score"><span class="score-bar"><i style="width:97%"></i></span><b>74.3</b></span></td><td>¥26.69</td><td>¥133.43</td><td>榜首参照，无免费额度</td></tr>
-      <tr><td>Kimi K3.1 Pro</td><td>Moonshot AI</td><td><span class="score"><span class="score-bar"><i style="width:73%"></i></span><b>68.2</b></span></td><td>¥13</td><td>¥68</td><td>开源权重；开放平台需充值 ¥10 解锁</td></tr>
-      <tr><td>DeepSeek V4.1 Flash 1017</td><td>DeepSeek</td><td><span class="score"><span class="score-bar"><i style="width:63%"></i></span><b>65.8</b></span></td><td>¥1</td><td>¥4</td><td>榜内性价比最高；AMD / EdgeOne 免费档在列</td></tr>
-      <tr><td>Gemini 3.8 Flash</td><td>Google</td><td><span class="score"><span class="score-bar"><i style="width:54%"></i></span><b>63.5</b></span></td><td>¥10.01</td><td>¥50.03</td><td>Google AI Studio 提供免费额度</td></tr>
-      <tr><td>GLM-5.3</td><td>Z.ai</td><td><span class="score"><span class="score-bar"><i style="width:52%"></i></span><b>62.9</b></span></td><td>¥8</td><td>¥28</td><td>开源权重；多平台免费档在列</td></tr>
-      <tr><td>Qwen3.8 Max 0902</td><td>Alibaba</td><td><span class="score"><span class="score-bar"><i style="width:51%"></i></span><b>62.8</b></span></td><td>¥12</td><td>¥36</td><td>阿里云百炼新人送 100 万 Token</td></tr>
-      <tr><td>MiMo-V2.6-Pro</td><td>Xiaomi</td><td><span class="score"><span class="score-bar"><i style="width:50%"></i></span><b>62.4</b></span></td><td>¥3</td><td>¥6</td><td>开源权重；AMD 免费档含同系 Flash</td></tr>
-      <tr><td>Claude Haiku 5.5</td><td>Anthropic</td><td><span class="score"><span class="score-bar"><i style="width:49%"></i></span><b>62.2</b></span></td><td>¥0.67</td><td>¥3.34</td><td>榜内最低输入价之一，无免费额度</td></tr>
+    <tbody id="rankBody">
+      <tr class="rank-row" data-tags="" data-rank="1" data-score="74.3" data-in="26.69" data-out="133.43">
+        <td><span class="rank-num top1">01</span></td>
+        <td><span class="model-name">Claude Opus 5.5</span><br><span class="maker">Anthropic · 09-22 上线</span></td>
+        <td>54 项 / 100%</td><td>¥26.69</td><td>¥133.43</td>
+        <td><span class="score"><span class="score-bar"><i style="width:97%"></i></span><b>74.3</b></span></td>
+        <td>榜首参照，无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="2" data-score="72.5" data-in="66.71" data-out="333.56">
+        <td><span class="rank-num top2">02</span></td>
+        <td><span class="model-name">Claude Fable 5.1</span><br><span class="maker">Anthropic · 09-01 上线</span></td>
+        <td>47 项 / 92%</td><td>¥66.71</td><td>¥333.56</td>
+        <td><span class="score"><span class="score-bar"><i style="width:90%"></i></span><b>72.5</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="3" data-score="72.3" data-in="66.71" data-out="333.56">
+        <td><span class="rank-num top3">03</span></td>
+        <td><span class="model-name">GPT-6 Astra</span><br><span class="maker">OpenAI · 09-03 上线</span></td>
+        <td>54 项 / 100%</td><td>¥66.71</td><td>¥333.56</td>
+        <td><span class="score"><span class="score-bar"><i style="width:89%"></i></span><b>72.3</b></span></td>
+        <td>无免费额度；超 272K 提示词价格翻倍</td>
+      </tr>
+      <tr class="rank-row" data-tags="free" data-rank="4" data-score="71.9" data-in="26.69" data-out="133.43">
+        <td><span class="rank-num">04</span></td>
+        <td><span class="model-name">Gemini 4 Argon</span><br><span class="maker">Google · 09-30 上线</span></td>
+        <td>49 项 / 95%</td><td>¥26.69</td><td>¥133.43</td>
+        <td><span class="score"><span class="score-bar"><i style="width:88%"></i></span><b>71.9</b></span></td>
+        <td>官网限时价至 11-30（输入 $2 / 输出 $10）</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="5" data-score="71.7" data-in="13.34" data-out="66.71">
+        <td><span class="rank-num">05</span></td>
+        <td><span class="model-name">Claude Sonnet 5.5</span><br><span class="maker">Anthropic · 09-28 上线</span></td>
+        <td>54 项 / 100%</td><td>¥13.34</td><td>¥66.71</td>
+        <td><span class="score"><span class="score-bar"><i style="width:87%"></i></span><b>71.7</b></span></td>
+        <td>无免费额度；Zed 学生档可免费用</td>
+      </tr>
+
+      <tr class="rank-row" data-tags="" data-rank="6" data-score="70.1" data-in="13.34" data-out="66.71">
+        <td><span class="rank-num">06</span></td>
+        <td><span class="model-name">GPT-6.1 Sol</span><br><span class="maker">OpenAI · 09-29 上线</span></td>
+        <td>53 项 / 97%</td><td>¥13.34</td><td>¥66.71</td>
+        <td><span class="score"><span class="score-bar"><i style="width:80%"></i></span><b>70.1</b></span></td>
+        <td>无免费额度；超 272K 提示词价格翻倍</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="7" data-score="69.4" data-in="33.36" data-out="166.78">
+        <td><span class="rank-num">07</span></td>
+        <td><span class="model-name">Claude Opus 5</span><br><span class="maker">Anthropic · 07-24 上线</span></td>
+        <td>44 项 / 90%</td><td>¥33.36</td><td>¥166.78</td>
+        <td><span class="score"><span class="score-bar"><i style="width:78%"></i></span><b>69.4</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="8" data-score="69.2" data-in="6.67" data-out="33.36">
+        <td><span class="rank-num">08</span></td>
+        <td><span class="model-name">GPT-6.1 Terra</span><br><span class="maker">OpenAI · 10-26 上线</span></td>
+        <td>28 项 / 58%</td><td>¥6.67</td><td>¥33.36</td>
+        <td><span class="score"><span class="score-bar"><i style="width:77%"></i></span><b>69.2</b></span></td>
+        <td>无免费额度；评测覆盖仅 58%</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="9" data-score="68.9" data-in="66.71" data-out="333.56">
+        <td><span class="rank-num">09</span></td>
+        <td><span class="model-name">Claude Fable 5</span><br><span class="maker">Anthropic · 06-09 上线</span></td>
+        <td>35 项 / 79%</td><td>¥66.71</td><td>¥333.56</td>
+        <td><span class="score"><span class="score-bar"><i style="width:76%"></i></span><b>68.9</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="cn oss" data-rank="10" data-score="68.2" data-in="13" data-out="68">
+        <td><span class="rank-num">10</span></td>
+        <td><span class="model-name">Kimi K3.1 Pro</span><span class="cn-flag">国产</span><span class="oss">开源</span><br><span class="maker">Moonshot AI · 10-23 上线</span></td>
+        <td>35 项 / 68%</td><td>¥13</td><td>¥68</td>
+        <td><span class="score"><span class="score-bar"><i style="width:73%"></i></span><b>68.2</b></span></td>
+        <td>开源权重；开放平台需充值 ¥10 解锁</td>
+      </tr>
+
+      <tr class="rank-row" data-tags="" data-rank="11" data-score="67.7" data-in="26.69" data-out="133.43">
+        <td><span class="rank-num">11</span></td>
+        <td><span class="model-name">Muse Wonder</span><br><span class="maker">Meta · 10-12 上线</span></td>
+        <td>39 项 / 79%</td><td>¥26.69</td><td>¥133.43</td>
+        <td><span class="score"><span class="score-bar"><i style="width:71%"></i></span><b>67.7</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="12" data-score="66.7" data-in="33.36" data-out="200.14">
+        <td><span class="rank-num">12</span></td>
+        <td><span class="model-name">GPT-5.6 Sol</span><br><span class="maker">OpenAI · 07-09 上线</span></td>
+        <td>40 项 / 84%</td><td>¥33.36</td><td>¥200.14</td>
+        <td><span class="score"><span class="score-bar"><i style="width:67%"></i></span><b>66.7</b></span></td>
+        <td>官网限时优惠至少至 11-30</td>
+      </tr>
+      <tr class="rank-row" data-tags="cn oss free" data-rank="13" data-score="65.8" data-in="1" data-out="4">
+        <td><span class="rank-num">13</span></td>
+        <td><span class="model-name">DeepSeek V4.1 Flash 1017</span><span class="cn-flag">国产</span><span class="oss">开源</span><br><span class="maker">DeepSeek · 10-17 上线</span></td>
+        <td>38 项 / 71%</td><td>¥1</td><td>¥4</td>
+        <td><span class="score"><span class="score-bar"><i style="width:63%"></i></span><b>65.8</b></span></td>
+        <td>榜内性价比最高；AMD / EdgeOne / 商汤免费档在列</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="14" data-score="65.6" data-in="13.34" data-out="66.71">
+        <td><span class="rank-num">14</span></td>
+        <td><span class="model-name">GPT-6 Sol</span><br><span class="maker">OpenAI · 09-22 上线</span></td>
+        <td>44 项 / 90%</td><td>¥13.34</td><td>¥66.71</td>
+        <td><span class="score"><span class="score-bar"><i style="width:62%"></i></span><b>65.6</b></span></td>
+        <td>无免费额度；超 272K 提示词价格翻倍</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="15" data-score="64.1" data-in="8.34" data-out="28.35">
+        <td><span class="rank-num">15</span></td>
+        <td><span class="model-name">Muse Spark 1.3</span><br><span class="maker">Meta · 09-02 上线</span></td>
+        <td>39 项 / 79%</td><td>¥8.34</td><td>¥28.35</td>
+        <td><span class="score"><span class="score-bar"><i style="width:56%"></i></span><b>64.1</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+
+      <tr class="rank-row" data-tags="free" data-rank="16" data-score="63.5" data-in="10.01" data-out="50.03">
+        <td><span class="rank-num">16</span></td>
+        <td><span class="model-name">Gemini 3.8 Flash</span><br><span class="maker">Google · 09-02 上线</span></td>
+        <td>52 项 / 97%</td><td>¥10.01</td><td>¥50.03</td>
+        <td><span class="score"><span class="score-bar"><i style="width:54%"></i></span><b>63.5</b></span></td>
+        <td>Google AI Studio 提供免费调用额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="17" data-score="63.1" data-in="33.36" data-out="200.14">
+        <td><span class="rank-num">17</span></td>
+        <td><span class="model-name">GPT-5.5</span><br><span class="maker">OpenAI · 04-23 上线</span></td>
+        <td>30 项 / 68%</td><td>¥33.36</td><td>¥200.14</td>
+        <td><span class="score"><span class="score-bar"><i style="width:52%"></i></span><b>63.1</b></span></td>
+        <td>无免费额度</td>
+      </tr>
+      <tr class="rank-row" data-tags="cn oss free" data-rank="18" data-score="62.9" data-in="8" data-out="28">
+        <td><span class="rank-num">18</span></td>
+        <td><span class="model-name">GLM-5.3</span><span class="cn-flag">国产</span><span class="oss">开源</span><br><span class="maker">Z.ai · 08-18 上线</span></td>
+        <td>51 项 / 95%</td><td>¥8</td><td>¥28</td>
+        <td><span class="score"><span class="score-bar"><i style="width:52%"></i></span><b>62.9</b></span></td>
+        <td>开源权重；多平台免费档在列</td>
+      </tr>
+      <tr class="rank-row" data-tags="cn free" data-rank="19" data-score="62.8" data-in="12" data-out="36">
+        <td><span class="rank-num">19</span></td>
+        <td><span class="model-name">Qwen3.8 Max 0902</span><span class="cn-flag">国产</span><br><span class="maker">Alibaba · 09-01 上线</span></td>
+        <td>29 项 / 58%</td><td>¥12</td><td>¥36</td>
+        <td><span class="score"><span class="score-bar"><i style="width:51%"></i></span><b>62.8</b></span></td>
+        <td>阿里云百炼新人送 100 万 Token</td>
+      </tr>
+      <tr class="rank-row" data-tags="" data-rank="20" data-score="62.7" data-in="13.34" data-out="40.03">
+        <td><span class="rank-num">20</span></td>
+        <td><span class="model-name">Grok 4.7</span><br><span class="maker">xAI · 09-21 上线</span></td>
+        <td>53 项 / 97%</td><td>¥13.34</td><td>¥40.03</td>
+        <td><span class="score"><span class="score-bar"><i style="width:51%"></i></span><b>62.7</b></span></td>
+        <td>无免费额度；达 200K 提示词按另一档计价</td>
+      </tr>
     </tbody>
   </table>
+  <p class="empty" id="rankEmpty" hidden>没有匹配的模型，换个关键词或筛选条件试试</p>
 </section>
+<div class="src" style="margin-bottom:24px;">榜外补充：<b>Claude Haiku 5.5</b>（62.2 分，输入 ¥0.67 / 输出 ¥3.34）是输入价最低的一档；<b>MiMo-V2.6-Pro</b>（62.4 分，¥3 / ¥6，开源权重）在 AMD 免费档含同系 Flash。完整 30 名与评分方法见 AIHOT 原榜。</div>
 
 
 <section class="table-wrap">
@@ -569,7 +912,7 @@ footer{
 </section>
 
 <footer>
-  <p>免费大模型平台导航 · 14 个平台 + 15 项免费额度 + 模型能力参考 · 单文件静态页面，打开 <code>index.html</code> 即可查看</p>
+  <p>免费大模型平台导航 · 14 个平台 + 15 项免费额度 + 22 张厂商卡册 + TOP 20 模型排行榜 · 单文件静态页面，打开 <code>index.html</code> 即可查看</p>
   <p style="margin-top:6px;">数据参考 <a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">AIHOT 模型榜</a> 与 <a href="https://aihot.news/free-tokens" target="_blank" rel="noopener">Token 羊毛</a>（2026-11-09）· 免费政策随时调整，领取与接入前请以官方说明为准</p>
 </footer>
 
@@ -579,36 +922,64 @@ footer{
     var count = document.getElementById('count');
     var gridEmpty = document.getElementById('gridEmpty');
     var perkEmpty = document.getElementById('perkEmpty');
-    var platformCards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
-    var perks = Array.prototype.slice.call(document.querySelectorAll('#perkGrid .perk'));
-    var state = { platform: 'all', perk: 'all', q: '' };
+    var rankEmpty = document.getElementById('rankEmpty');
+    var rankBody = document.getElementById('rankBody');
+    var litCount = document.getElementById('litCount');
+    var totalCount = document.getElementById('totalCount');
+    var platformCards = [].slice.call(document.querySelectorAll('#grid .card'));
+    var perks = [].slice.call(document.querySelectorAll('#perkGrid .perk'));
+    var rankRows = [].slice.call(document.querySelectorAll('#rankBody .rank-row'));
+    var albumCards = [].slice.call(document.querySelectorAll('#albumGrid .mini'));
+    var state = { platform: 'all', perk: 'all', rank: 'all', q: '' };
+    var scopeBtns = {};
 
-    function matches(item, cat, isPerk) {
-      if (state.q && item.textContent.toLowerCase().indexOf(state.q) === -1) return false;
-      if (cat === 'all') return true;
-      var raw = item.getAttribute('data-cat') || '';
-      return isPerk ? raw.split(' ').indexOf(cat) !== -1 : raw === cat;
+    function textOk(item) {
+      return !state.q || item.textContent.toLowerCase().indexOf(state.q) !== -1;
     }
-
+    function tagOk(raw, cat, multi) {
+      if (cat === 'all') return true;
+      return multi ? raw.split(' ').indexOf(cat) !== -1 : raw === cat;
+    }
     function render() {
-      var pv = 0, kv = 0;
+      var pv = 0, kv = 0, rv = 0;
       platformCards.forEach(function (c) {
-        var show = matches(c, state.platform, false);
-        c.classList.toggle('hidden', !show);
-        if (show) pv++;
+        var show = textOk(c) && tagOk(c.getAttribute('data-cat') || '', state.platform, false);
+        c.classList.toggle('hidden', !show); if (show) pv++;
       });
       perks.forEach(function (c) {
-        var show = matches(c, state.perk, true);
-        c.classList.toggle('hidden', !show);
-        if (show) kv++;
+        var show = textOk(c) && tagOk(c.getAttribute('data-cat') || '', state.perk, true);
+        c.classList.toggle('hidden', !show); if (show) kv++;
+      });
+      rankRows.forEach(function (r) {
+        var show = textOk(r) && tagOk(r.getAttribute('data-tags') || '', state.rank, true);
+        r.classList.toggle('hidden', !show); if (show) rv++;
       });
       gridEmpty.hidden = pv !== 0;
       perkEmpty.hidden = kv !== 0;
-      count.textContent = '显示 ' + pv + ' / ' + platformCards.length + ' 个平台 · ' + kv + ' / ' + perks.length + ' 项额度';
+      rankEmpty.hidden = rv !== 0;
+      count.textContent = '显示 ' + pv + '/' + platformCards.length + ' 平台 · ' + kv + '/' + perks.length + ' 额度 · ' + rv + '/' + rankRows.length + ' 模型';
     }
 
+    var sortState = { key: 'rank', dir: 1 };
+    function sortRows() {
+      rankRows.slice().sort(function (a, b) {
+        var x = parseFloat(a.getAttribute('data-' + sortState.key));
+        var y = parseFloat(b.getAttribute('data-' + sortState.key));
+        return (x - y) * sortState.dir;
+      }).forEach(function (r) { rankBody.appendChild(r); });
+    }
+    document.querySelectorAll('#rankTable th.sortable').forEach(function (th) {
+      th.addEventListener('click', function () {
+        var key = th.getAttribute('data-sort');
+        if (sortState.key === key) sortState.dir = -sortState.dir;
+        else { sortState.key = key; sortState.dir = (key === 'score') ? -1 : 1; }
+        sortRows();
+      });
+    });
+
     function bind(scope, key) {
-      var btns = document.querySelectorAll('.filter-bar[data-scope="' + scope + '"] button');
+      var btns = [].slice.call(document.querySelectorAll('.filter-bar[data-scope="' + scope + '"] button'));
+      scopeBtns[scope] = btns;
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           btns.forEach(function (b) { b.classList.remove('active'); });
@@ -618,13 +989,64 @@ footer{
         });
       });
     }
+    function resetScope(scope, key) {
+      state[key] = 'all';
+      (scopeBtns[scope] || []).forEach(function (b, i) { b.classList.toggle('active', i === 0); });
+    }
+
+    var KEY = 'free-llm-album-v1', collected = {};
+    try { collected = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { collected = {}; }
+    albumCards.forEach(function (c) {
+      var s = c.querySelector('.stack');
+      s.setAttribute('data-base', s.textContent.replace('×', '').trim());
+    });
+    function paintAlbum() {
+      var lit = 0;
+      albumCards.forEach(function (c) {
+        var v = c.getAttribute('data-vendor'), on = !!collected[v];
+        if (on) lit++;
+        c.classList.toggle('collected', on);
+        var s = c.querySelector('.stack');
+        var base = parseInt(s.getAttribute('data-base'), 10) || 1;
+        s.textContent = '×' + (base + (on ? 1 : 0));
+      });
+      litCount.textContent = lit;
+      totalCount.textContent = albumCards.length;
+    }
+    function activateVendor(card) {
+      var v = card.getAttribute('data-vendor');
+      if (search.value === v) { search.value = ''; state.q = ''; }
+      else { search.value = v; state.q = v.toLowerCase(); }
+      resetScope('platform', 'platform');
+      resetScope('perk', 'perk');
+      resetScope('rank', 'rank');
+      render();
+      document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    albumCards.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('check')) activateVendor(c);
+      });
+      c.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateVendor(c); }
+      });
+      c.querySelector('.check').addEventListener('click', function (e) {
+        e.stopPropagation();
+        var v = c.getAttribute('data-vendor');
+        if (collected[v]) delete collected[v]; else collected[v] = 1;
+        try { localStorage.setItem(KEY, JSON.stringify(collected)); } catch (err) {}
+        paintAlbum();
+      });
+    });
 
     bind('platform', 'platform');
     bind('perk', 'perk');
+    bind('rank', 'rank');
     search.addEventListener('input', function () {
       state.q = search.value.trim().toLowerCase();
       render();
     });
+    paintAlbum();
     render();
   })();
 </script>
