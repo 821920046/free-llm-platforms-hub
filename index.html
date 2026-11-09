@@ -169,10 +169,69 @@ footer{
   font-size:13px;
   color:var(--muted);
 }
+.hero .stamp{
+  display:inline-block;margin-top:18px;font-size:12.5px;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:5px 14px;border-radius:999px;
+}
+.toolbar{
+  max-width:1080px;margin:28px auto 0;padding:0 24px;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+}
+.search{
+  flex:1;min-width:220px;padding:10px 14px;
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--card);font-size:14px;color:var(--text);outline:none;
+}
+.search:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.12);}
+.count{font-size:13px;color:var(--muted);white-space:nowrap;}
+.section-head{max-width:1080px;margin:40px auto 14px;padding:0 24px;}
+.section-head h2{font-size:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.section-head p{font-size:13px;color:var(--muted);margin-top:6px;}
+.section-head .filter-bar{margin:14px 0 0;padding:0;justify-content:flex-start;}
+.filter-bar button{padding:7px 16px;font-size:13px;}
+.perk-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:16px;max-width:1080px;margin:18px auto 0;padding:0 24px 24px;
+}
+.perk{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.perk:hover{border-color:var(--primary);}
+.perk.hidden{display:none;}
+.perk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.perk h3{font-size:15px;line-height:1.45;}
+.perk-value{font-size:19px;font-weight:800;color:var(--free);white-space:nowrap;}
+.cycle{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700;white-space:nowrap;display:inline-block;width:fit-content;}
+.cycle.day{background:rgba(22,163,74,.12);color:var(--free);}
+.cycle.month{background:rgba(2,132,199,.12);color:var(--intl);}
+.cycle.limited{background:rgba(220,38,38,.10);color:#dc2626;}
+.perk-models{font-size:12.5px;color:var(--muted);}
+.perk-cond{display:flex;flex-wrap:wrap;gap:5px;}
+.tag{font-size:11px;padding:2px 8px;border-radius:6px;background:#f1f5f9;color:#475569;border:1px solid var(--border);}
+.tag.api{background:rgba(22,163,74,.10);color:var(--free);border-color:rgba(22,163,74,.3);}
+.tag.warn{background:rgba(234,88,12,.08);color:var(--cn);border-color:rgba(234,88,12,.25);}
+.perk-foot{display:flex;justify-content:space-between;align-items:center;margin-top:2px;}
+.verified{font-size:11px;color:#94a3b8;}
+.go{font-size:12.5px;font-weight:600;}
+.score{display:inline-flex;align-items:center;gap:8px;}
+.score-bar{width:64px;height:6px;border-radius:999px;background:#e2e8f0;overflow:hidden;}
+.score-bar i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#0ea5e9);}
+.score b{font-size:13px;color:var(--primary);}
+.src{max-width:1080px;margin:0 auto 10px;padding:0 24px;font-size:12.5px;color:var(--muted);}
+.empty{
+  grid-column:1/-1;text-align:center;color:var(--muted);font-size:14px;
+  padding:24px;border:1px dashed var(--border);border-radius:var(--radius);background:var(--card);
+}
+.empty[hidden]{display:none;}
 @media (max-width:640px){
   .hero h1{font-size:26px;}
   .hero{padding:52px 16px 84px;}
   main.grid{grid-template-columns:1fr;}
+  .perk-grid{grid-template-columns:1fr;}
+  .section-head h2{font-size:19px;}
   .stats{grid-template-columns:repeat(2,1fr);}
 }
 </style>
@@ -180,18 +239,24 @@ footer{
 <body>
 <header class="hero">
   <h1>免费大模型平台导航</h1>
-  <p>精选国内外 11 个可免费接入的大模型 API 平台：免费额度、免费模型、OpenAI 兼容接口，一站对比、即取即用。</p>
+  <p>精选国内外 14 个可免费接入的大模型 API 平台，以及 15 项可定期领取的免费额度：适用模型、限制条件、核实日期、能力评分一次看清。</p>
+  <div class="stamp">数据参考 AIHOT 模型榜 / Token 羊毛 · 2026-11-09 更新</div>
 </header>
 
 <section class="stats">
-  <div class="stat"><b>11</b><span>精选平台</span></div>
-  <div class="stat"><b>100+</b><span>免费模型</span></div>
-  <div class="stat"><b>6</b><span>国内平台</span></div>
-  <div class="stat"><b>5</b><span>国际平台</span></div>
+  <div class="stat"><b>14</b><span>精选平台</span></div>
+  <div class="stat"><b>15</b><span>免费额度</span></div>
+  <div class="stat"><b>7</b><span>国内平台</span></div>
+  <div class="stat"><b>7</b><span>国际平台</span></div>
 </section>
 
-<div class="filter-bar">
-  <button class="active" data-cat="all">全部</button>
+<div class="toolbar">
+  <input class="search" id="search" type="search" placeholder="搜索平台、模型或额度，例如 GLM / DeepSeek / 免费 / 代金券">
+  <span class="count" id="count"></span>
+</div>
+
+<div class="filter-bar" data-scope="platform">
+  <button class="active" data-cat="all">全部平台</button>
   <button data-cat="cn">国内平台</button>
   <button data-cat="intl">国际平台</button>
 </div>
@@ -200,64 +265,64 @@ footer{
 
   <article class="card" data-cat="cn">
     <h3>硅基流动 SiliconFlow <span class="badge cn">国内</span><span class="badge hot">热门</span></h3>
-    <span class="free-tag">免费模型 + 注册送额度</span>
-    <p>一站式大模型云服务平台，Qwen2.5-7B、GLM-4-9B、DeepSeek-R1 蒸馏版等多款模型可直接免费调用；注册另赠 2000 万 Tokens 体验额度。</p>
-    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">国内直连</span><span class="chip">模型最全</span></div>
+    <span class="free-tag">定价页标免费的模型长期免费</span>
+    <p>定价页中标「免费」的 OCR、语音、向量与生图模型可零成本调用：PaddleOCR-VL-1.5、BGE 向量与重排系列、Kolors、SenseVoiceSmall、Hunyuan-MT-7B 等；实名认证另送 16 元代金券（含 Pro / 高速模型，至 12-31）。</p>
+    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">国内直连</span><span class="chip">按模型限速</span></div>
     <div class="btn-row"><a class="btn" href="https://siliconflow.cn" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://docs.siliconflow.cn" target="_blank" rel="noopener">文档</a></div>
   </article>
 
   <article class="card" data-cat="cn">
     <h3>智谱 AI BigModel <span class="badge cn">国内</span></h3>
-    <span class="free-tag">GLM-4-Flash 永久免费</span>
-    <p>GLM-4-Flash 文本模型与 GLM-4V-Flash 视觉模型长期免费开放，注册另赠新用户体验额度，适合快速搭建对话与多模态应用。</p>
-    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">永久免费模型</span><span class="chip">多模态</span></div>
+    <span class="free-tag">Flash 系列免费档 + 限时 5000 万 Token</span>
+    <p>GLM-5.3-Flash 等 Flash 系列长期提供免费 / 极低价额度；AutoClaw 国内版双十一登录领 5000 万 Tokens，覆盖 GLM-5.3、GLM-5.3-Flash、GLM-5-Turbo、GLM-5V-Turbo 与 Auto 模式（限产品内、每账号一次）。</p>
+    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">免费 Flash 模型</span><span class="chip">多模态</span></div>
     <div class="btn-row"><a class="btn" href="https://open.bigmodel.cn" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://docs.bigmodel.cn" target="_blank" rel="noopener">文档</a></div>
   </article>
 
   <article class="card" data-cat="cn">
     <h3>DeepSeek 开放平台 <span class="badge cn">国内</span><span class="badge hot">热门</span></h3>
-    <span class="free-tag">注册赠额度 + 超低价</span>
-    <p>deepseek-chat 与 deepseek-reasoner 价格极低，注册即赠体验额度；模型权重开源，可本地/自建部署实现零成本使用。</p>
-    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">开源可自部署</span><span class="chip">推理模型</span></div>
+    <span class="free-tag">新用户赠金 + 输入 ¥1 / 百万 Token 起</span>
+    <p>deepseek-flash（已升级 V4.1 Flash 1017）与 deepseek-v4-pro 空闲时段输入 ¥1、输出 ¥4 每百万 Token，是模型榜上性价比最高的一档（AIHOT 评分 65.8）；Harness 登录另送 6 元，权重开源可自部署。</p>
+    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">开源权重</span><span class="chip">高峰时段翻倍</span></div>
     <div class="btn-row"><a class="btn" href="https://platform.deepseek.com" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://api-docs.deepseek.com" target="_blank" rel="noopener">文档</a></div>
   </article>
 
     <article class="card" data-cat="cn">
     <h3>腾讯云混元 <span class="badge cn">国内</span></h3>
-    <span class="free-tag">Hunyuan-Lite 免费</span>
-    <p>轻量版 Hunyuan 模型长期免费开放，新用户另有大量体验额度；提供 OpenAI 兼容接口，与腾讯云生态无缝集成。</p>
-    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">免费轻量模型</span><span class="chip">云服务生态</span></div>
+    <span class="free-tag">新人 100 万 Token / 云开发 10 亿 Token</span>
+    <p>TokenHub 新人送 100 万 Token（语言与多模态模型，至 12-31）；微信云开发「AI 激励计划」送 10 亿 Token + 10 万张生图，可用 hy4、hy4-preview、deepseek-v4.1-flash-1017 等，限云开发内使用。</p>
+    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">要实名</span><span class="chip">腾讯云生态</span></div>
     <div class="btn-row"><a class="btn" href="https://cloud.tencent.com/product/hunyuan" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://cloud.tencent.com/document/product/1729" target="_blank" rel="noopener">文档</a></div>
   </article>
 
   <article class="card" data-cat="cn">
     <h3>百度千帆 ModelBuilder <span class="badge cn">国内</span></h3>
-    <span class="free-tag">ERNIE 轻量模型免费</span>
-    <p>ERNIE-Speed、ERNIE-Lite、ERNIE-Tiny 等轻量模型免费调用，千帆平台为新用户提供免费推理算力与体验额度。</p>
-    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">免费模型</span><span class="chip">中文优化</span></div>
+    <span class="free-tag">新用户 ¥20 代金券</span>
+    <p>ERNIE 轻量模型长期提供免费调用；新用户另送 20 元代金券，官方称「全平台无门槛使用」（需实名，活动至 11-30，月中升级不补发）。</p>
+    <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">免费轻量模型</span><span class="chip">中文优化</span></div>
     <div class="btn-row"><a class="btn" href="https://qianfan.cloud.baidu.com" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://cloud.baidu.com/doc/WENXINWORKSHOP/index.html" target="_blank" rel="noopener">文档</a></div>
   </article>
 
   <article class="card" data-cat="cn">
     <h3>讯飞星火 Spark <span class="badge cn">国内</span></h3>
-    <span class="free-tag">Spark Lite 免费</span>
-    <p>Spark Lite 轻量版长期免费，新用户注册赠送 Tokens 礼包；支持 WebSocket 与 HTTP 多种接入方式。</p>
-    <div class="chips"><span class="chip">免费轻量模型</span><span class="chip">国内直连</span><span class="chip">多模态能力</span></div>
+    <span class="free-tag">Spark Lite 免费层</span>
+    <p>Spark Lite 轻量版长期免费，新用户注册赠送 Tokens 礼包；支持 WebSocket 与 HTTP 接入。免费额度限官方客户端 / 开放平台内使用，接入前请核对当期条款。</p>
+    <div class="chips"><span class="chip">国内直连</span><span class="chip">免费轻量模型</span><span class="chip">多模态能力</span></div>
     <div class="btn-row"><a class="btn" href="https://xinghuo.xfyun.cn/sparkapi" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://www.xfyun.cn/doc/spark/" target="_blank" rel="noopener">文档</a></div>
   </article>
 
     <article class="card" data-cat="intl">
     <h3>OpenRouter <span class="badge intl">国际</span><span class="badge hot">热门</span></h3>
     <span class="free-tag">:free 模型免费调用</span>
-    <p>聚合数百款模型，带 <b>:free</b> 后缀的模型（如 DeepSeek R1 Free、Llama 3.3 70B Free、Qwen 系列）可零成本调用，统一 OpenAI 格式接口，一个 Key 切换所有模型。</p>
+    <p>聚合数百款模型，带 <b>:free</b> 后缀的模型可零成本调用，统一 OpenAI 格式接口，一个 Key 切换所有模型；常见免费档包含 DeepSeek V4.1 Flash、GLM-5.3-Flash、MiMo-V2.6-Flash 等开源模型的 Free 版本，具体以控制台列表为准。</p>
     <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">免绑卡</span><span class="chip">模型聚合</span></div>
     <div class="btn-row"><a class="btn" href="https://openrouter.ai" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://openrouter.ai/docs" target="_blank" rel="noopener">文档</a></div>
   </article>
 
   <article class="card" data-cat="intl">
     <h3>Google AI Studio <span class="badge intl">国际</span><span class="badge hot">热门</span></h3>
-    <span class="free-tag">Gemini 免费额度</span>
-    <p>Gemini Flash 系列提供慷慨的免费调用额度（按每分钟请求数与每日 Tokens 计），API Key 即取即用，无需绑定信用卡，适合原型开发与个人项目。</p>
+    <span class="free-tag">Gemini Flash 免费调用额度</span>
+    <p>Gemini 3.8 Flash（AIHOT 评分 63.5）等 Flash 系列提供免费调用额度（按每分钟请求数与每日 Tokens 计），API Key 即取即用、无需绑卡；3.7 Flash 的开发者 API 请求现转至 3.8 Flash。</p>
     <div class="chips"><span class="chip">免绑卡</span><span class="chip">多模态</span><span class="chip">长上下文</span></div>
     <div class="btn-row"><a class="btn" href="https://aistudio.google.com" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener">文档</a></div>
   </article>
@@ -265,7 +330,7 @@ footer{
   <article class="card" data-cat="intl">
     <h3>Groq <span class="badge intl">国际</span></h3>
     <span class="free-tag">免费开发者层</span>
-    <p>以 LPU 推理芯片著称，Llama、Mixtral、DeepSeek 蒸馏版等开源模型可免费极速调用，速率限制明确，适合对响应延迟敏感的场景。</p>
+    <p>以 LPU 推理芯片著称，Llama、Qwen、GPT-OSS 等开源权重模型可免费极速调用，免费 Developer Tier 速率限制明确，适合对响应延迟敏感的场景。</p>
     <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">极速推理</span><span class="chip">免费 Developer Tier</span></div>
     <div class="btn-row"><a class="btn" href="https://console.groq.com" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://console.groq.com/docs" target="_blank" rel="noopener">文档</a></div>
   </article>
@@ -281,59 +346,286 @@ footer{
   <article class="card" data-cat="intl">
     <h3>NVIDIA NIM <span class="badge intl">国际</span></h3>
     <span class="free-tag">免费体验 Credits</span>
-    <p>build.nvidia.com 提供 Llama、Qwen、DeepSeek 等大量模型的免费试用额度（注册赠送 Credits），OpenAI 兼容接口，可直接在线测试与调用。</p>
+    <p>build.nvidia.com 提供 Llama、Qwen、Nemotron 3.5 Super VL / Nemotron 3 Ultra 等大量模型的免费试用额度（注册赠送 Credits），OpenAI 兼容接口，可直接在线测试与调用。</p>
     <div class="chips"><span class="chip">OpenAI 兼容</span><span class="chip">赠送 Credits</span><span class="chip">模型丰富</span></div>
     <div class="btn-row"><a class="btn" href="https://build.nvidia.com" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://docs.api.nvidia.com" target="_blank" rel="noopener">文档</a></div>
   </article>
+  <article class="card" data-cat="cn">
+    <h3>魔搭社区 ModelScope <span class="badge cn">国内</span><span class="badge hot">热门</span></h3>
+    <span class="free-tag">每天送 200 魔粒</span>
+    <p>每日登录赠送 200 魔粒，可调用 API-Inference 上所有带蓝绿色闪电标记的开源模型；需实名、绑阿里云账号并验证邮箱，是稳定可续的国内免费 API 入口（11-08 核实）。</p>
+    <div class="chips"><span class="chip">可当 API 用</span><span class="chip">每日可领</span><span class="chip">要实名</span></div>
+    <div class="btn-row"><a class="btn" href="https://www.modelscope.cn" target="_blank" rel="noopener">官网</a><a class="btn ghost" href="https://www.modelscope.cn/posts/435591" target="_blank" rel="noopener">规则</a></div>
+  </article>
+
+  <article class="card" data-cat="intl">
+    <h3>AMD Token Factory <span class="badge intl">国际</span><span class="badge hot">热门</span></h3>
+    <span class="free-tag">每日免费模型 API</span>
+    <p>开发者控制台每日提供免费模型 API：GLM-5.3-Flash、Qwen3.8-Flash-Next、Qwen3.8-27B、DeepSeek-V4.1-Flash、MiMo-V2.6-Flash、Gemma-4-31B-IT 等，具体以控制台列表为准（11-09 核实）。</p>
+    <div class="chips"><span class="chip">可当 API 用</span><span class="chip">每日可领</span><span class="chip">国内可访问</span></div>
+    <div class="btn-row"><a class="btn" href="https://developer.amd.com.cn/radeon/tokenfactory" target="_blank" rel="noopener">控制台</a></div>
+  </article>
+
+  <article class="card" data-cat="intl">
+    <h3>Cloudflare Workers AI <span class="badge intl">国际</span></h3>
+    <span class="free-tag">每天 1 万 Neurons</span>
+    <p>免费计划每天赠送 1 万 Neurons，可跑 Qwen3.8-27B、GPT-OSS 120B/20B、Gemma 4 26B、Llama 4 Scout、BGE-M3 等；超额即停不扣费，不含 Kimi K2.6/K2.7 Code、GLM-5.2/5.3 等（11-08 核实）。</p>
+    <div class="chips"><span class="chip">可当 API 用</span><span class="chip">每日可领</span><span class="chip">超额即停</span></div>
+    <div class="btn-row"><a class="btn" href="https://developers.cloudflare.com/workers-ai/platform/pricing/" target="_blank" rel="noopener">定价说明</a></div>
+  </article>
+  <p class="empty" id="gridEmpty" hidden>没有匹配的平台，换个关键词试试</p>
 
 </main>
 
 <div class="note">
-  <b>补充：开源目录持续追踪</b> — GitHub 项目 <a href="https://github.com/cheahjs/free-llm-resources" target="_blank" rel="noopener">free-llm-resources</a> 汇总了 <b>47 家提供商、210+ 免费模型</b> 的免费额度信息并持续更新，适合作为查漏补缺的清单使用。免费额度与政策随时可能调整，接入前请以各平台官方说明为准。
+  <b>数据来源与口径</b> — 额度信息参考 <a href="https://aihot.news/free-tokens" target="_blank" rel="noopener">AIHOT · Token 羊毛</a>（每条均在厂商官方页面核实并标注日期），模型评分与价格参考 <a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">AIHOT · 大模型排行榜</a>（54 项评测 / 16 家第三方机构，11-09 20:05 更新）。<b>「可当 API 用」与「限产品内使用」是领取前最需要先看清的区别</b>；另可用 <a href="https://github.com/cheahjs/free-llm-resources" target="_blank" rel="noopener">free-llm-resources</a>（47 家提供商、210+ 免费模型）查漏补缺。
 </div>
 
+<div class="section-head" id="perks">
+  <h2>免费额度羊毛榜</h2>
+  <p>按领取周期分类，标注额度、适用模型、限制条件与核实日期。用「仅 API 可用」筛选，只看能真正接进代码的额度。</p>
+  <div class="filter-bar" data-scope="perk">
+    <button class="active" data-cat="all">全部 15 项</button>
+    <button data-cat="day">每日可领</button>
+    <button data-cat="month">每月可领</button>
+    <button data-cat="limited">限时福利</button>
+    <button data-cat="api">仅 API 可用</button>
+  </div>
+</div>
+
+<div class="perk-grid" id="perkGrid">
+
+  <article class="perk" data-cat="day api">
+    <div class="perk-top"><h3>AMD Token Factory · 每日免费模型 API</h3><span class="perk-value">免费</span></div>
+    <span class="cycle day">每日可领</span>
+    <div class="perk-models">GLM-5.3-Flash、Qwen3.8-Flash-Next、Qwen3.8-27B、DeepSeek-V4.1-Flash、MiMo-V2.6-Flash、Gemma-4-31B-IT</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag">部分模型</span><span class="tag warn">以控制台列表为准</span></div>
+    <div class="perk-foot"><span class="verified">11-09 核实</span><a class="go" href="https://developer.amd.com.cn/radeon/tokenfactory" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="day api">
+    <div class="perk-top"><h3>Cloudflare Workers AI · 每天 1 万 Neurons</h3><span class="perk-value">1 万 Neurons</span></div>
+    <span class="cycle day">每日可领</span>
+    <div class="perk-models">Qwen3.8-27B、GPT-OSS 120B/20B、Gemma 4 26B、Llama 4 Scout、BGE-M3 等</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">超额即停</span><span class="tag warn">不含 Kimi K2.6 / GLM-5.x 等</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://developers.cloudflare.com/workers-ai/platform/pricing/" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="day api">
+    <div class="perk-top"><h3>魔搭社区 · 每天送 200 魔粒调模型 API</h3><span class="perk-value">200 魔粒</span></div>
+    <span class="cycle day">每日可领</span>
+    <div class="perk-models">API-Inference 上所有带蓝绿色闪电标记的开源模型；老模型会陆续下架</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">要实名</span><span class="tag warn">绑阿里云账号</span><span class="tag">需验证邮箱</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://www.modelscope.cn/posts/435591" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="day">
+    <div class="perk-top"><h3>MiniMax Code · 每天签到领 400 积分</h3><span class="perk-value">400 积分</span></div>
+    <span class="cycle day">每日可领</span>
+    <div class="perk-models">MiniMax Code 内平台支持的所有文本与多模态模型</div>
+    <div class="perk-cond"><span class="tag warn">限产品内使用</span><span class="tag">需下载客户端</span><span class="tag">所有模型</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://agent.minimax.cn/docs/code/account/usage" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="day">
+    <div class="perk-top"><h3>WorkBuddy · 每天领 100 积分</h3><span class="perk-value">100 积分</span></div>
+    <span class="cycle day">每日可领</span>
+    <div class="perk-models">WorkBuddy 内置模型；加入 Buddy One 后也可用于已关联的腾讯文档、ima、腾讯网盘 AI 功能</div>
+    <div class="perk-cond"><span class="tag warn">限产品内使用</span><span class="tag">所有模型</span><span class="tag">需客户端</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://www.workbuddy.cn/" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="month api">
+    <div class="perk-top"><h3>Rime · 每月 50 美元语音模型额度</h3><span class="perk-value">≈¥334</span></div>
+    <span class="cycle month">每月可领</span>
+    <div class="perk-models">Rime 全部语音模型（按 1 美元 ≈ 6.67 元折算）</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag">无需绑卡</span><span class="tag warn">限商业评估 / 开发</span><span class="tag warn">需年满 18 岁</span></div>
+    <div class="perk-foot"><span class="verified">11-09 核实</span><a class="go" href="https://www.rime.ai/pricing" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="month api">
+    <div class="perk-top"><h3>EdgeOne Makers · 每月 50 万 Token</h3><span class="perk-value">50 万 Token</span></div>
+    <span class="cycle month">每月可领</span>
+    <div class="perk-models">DeepSeek V4 Pro / V4 Flash / V4.1 Flash、Kimi K2.6、MiniMax M3 / M2.7、混元 Hy3 / Hy3 Preview、朱雀</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">仅限技术验证</span><span class="tag warn">账号共享额度</span><span class="tag">自接密钥另收费</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://pages.edgeone.ai/zh/document/limits-and-quotas" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="month api">
+    <div class="perk-top"><h3>书生·端砚 · 测试期每月免费墨点</h3><span class="perk-value">免费</span></div>
+    <span class="cycle month">每月可领</span>
+    <div class="perk-models">Token Plan 全部模型，如 DeepSeek-V4.1-Flash-1017、GLM-5.3、Qwen3.8-27B；Agents-A1 等当前免扣墨点</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">测试期福利</span><span class="tag">额度以账户为准</span></div>
+    <div class="perk-foot"><span class="verified">11-09 核实</span><a class="go" href="https://discovery.intern-ai.org.cn/token-plan/home" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="month">
+    <div class="perk-top"><h3>WorkBuddy 体验版 · 每月 500 积分</h3><span class="perk-value">500 积分</span></div>
+    <span class="cycle month">每月可领</span>
+    <div class="perk-models">WorkBuddy 与 CodeBuddy 内置模型；加入 Buddy One 后可用于已关联的腾讯文档、ima、腾讯网盘 AI 功能</div>
+    <div class="perk-cond"><span class="tag warn">限产品内使用</span><span class="tag">所有模型</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://www.workbuddy.cn/docs/workbuddy/Pricing" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited api">
+    <div class="perk-top"><h3>超算互联网 · 新用户 1000 万 Token</h3><span class="perk-value">≈¥6</span></div>
+    <span class="cycle limited">限时 · 至 12-31</span>
+    <div class="perk-models">当前为 GLM-5.3-Flash；实际发放型号可能调整，以到账为准</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">要实名</span><span class="tag warn">限量先到先得</span><span class="tag warn">用完扣现金余额</span></div>
+    <div class="perk-foot"><span class="verified">11-09 核实</span><a class="go" href="https://www.scnet.cn/home/subject/maas/index.html" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited api">
+    <div class="perk-top"><h3>硅基流动 · 实名认证送 16 元代金券</h3><span class="perk-value">¥16</span></div>
+    <span class="cycle limited">限时 · 至 12-31</span>
+    <div class="perk-models">平台所有模型，含 Pro 与高速模型；API、批量推理、微调都能用</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">要实名</span><span class="tag">所有模型</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://www.siliconflow.cn/news/od7wj9rr23p95uhihmhrombp" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited api">
+    <div class="perk-top"><h3>百度千帆 · 新用户 20 元代金券</h3><span class="perk-value">¥20</span></div>
+    <span class="cycle limited">限时 · 至 11-30</span>
+    <div class="perk-models">千帆平台上的所有模型，官方写「全平台无门槛使用」</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">要实名</span><span class="tag warn">月中升级不补发</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://cloud.baidu.com/campaign/event/bigevent/index.html" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited api">
+    <div class="perk-top"><h3>阿里云百炼 · 新人每模型 100 万 Token</h3><span class="perk-value">≈¥7.1 起</span></div>
+    <span class="cycle limited">新人福利</span>
+    <div class="perk-models">北京地域部分模型各送一份，如 qwen3.8-max、deepseek-v4-pro、kimi-k3；qwen3.6-plus / qwen-plus 不送</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">要实名</span><span class="tag warn">仅北京地域</span><span class="tag warn">用完自动转付费</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://help.aliyun.com/zh/model-studio/new-free-quota" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited api">
+    <div class="perk-top"><h3>商汤日日新公测 · 每 5 小时 12 万积分</h3><span class="perk-value">12 万积分</span></div>
+    <span class="cycle limited">公测期</span>
+    <div class="perk-models">所有 Token Plan 模型：SenseNova 6.8 Flash、U1.5、DeepSeek V4 / V4.1 Flash、GLM-5.2 / 5.3、Kimi K3</div>
+    <div class="perk-cond"><span class="tag api">可当 API 用</span><span class="tag warn">通用池周限 120 万</span><span class="tag">另有专属积分池</span></div>
+    <div class="perk-foot"><span class="verified">11-08 核实</span><a class="go" href="https://platform.sensenova.cn/docs#points" target="_blank" rel="noopener">去用 →</a></div>
+  </article>
+
+  <article class="perk" data-cat="limited">
+    <div class="perk-top"><h3>智谱 AutoClaw · 双十一登录领 5000 万 Token</h3><span class="perk-value">5000 万 Token</span></div>
+    <span class="cycle limited">限时 · 剩 6 天</span>
+    <div class="perk-models">AutoClaw 内置 GLM 模型：GLM-5.3、GLM-5.3-Flash、GLM-5-Turbo、GLM-5V-Turbo 及 Auto 模式</div>
+    <div class="perk-cond"><span class="tag warn">限产品内使用</span><span class="tag warn">要实名</span><span class="tag warn">国内版账号</span><span class="tag">每账号一次</span></div>
+    <div class="perk-foot"><span class="verified">11-09 核实</span><a class="go" href="https://autoclaw.zhipuai.cn/blog/news/M11W2/" target="_blank" rel="noopener">去领 →</a></div>
+  </article>
+
+  <p class="empty" id="perkEmpty" hidden>没有匹配的免费额度，换个关键词试试</p>
+
+</div>
+
+<div class="section-head" id="models">
+  <h2>模型能力参考 <span class="cycle month">AIHOT 综合榜</span></h2>
+  <p>评分只采用第三方机构实测成绩（编程 38%、科研 19%、专业办公 19%、知识问答 14%、真人盲选 10%），50 分约为参照模型平均水平，价格不参与排序。下表挑出与免费 / 极低价额度相关的代表模型，方便判断「免费模型大概能干什么」。</p>
+</div>
+<div class="src">来源：<a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">aihot.news/leaderboard</a> · 54 项评测 / 16 家机构 · 2026-11-09 20:05 更新 · 价格单位：人民币 / 百万 Token</div>
+<section class="table-wrap" style="margin-top:0;">
+  <table>
+    <thead>
+      <tr><th>模型</th><th>厂商</th><th>AIHOT 评分</th><th>输入价</th><th>输出价</th><th>与免费额度的关系</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Claude Opus 5.5</td><td>Anthropic</td><td><span class="score"><span class="score-bar"><i style="width:97%"></i></span><b>74.3</b></span></td><td>¥26.69</td><td>¥133.43</td><td>榜首参照，无免费额度</td></tr>
+      <tr><td>Kimi K3.1 Pro</td><td>Moonshot AI</td><td><span class="score"><span class="score-bar"><i style="width:73%"></i></span><b>68.2</b></span></td><td>¥13</td><td>¥68</td><td>开源权重；开放平台需充值 ¥10 解锁</td></tr>
+      <tr><td>DeepSeek V4.1 Flash 1017</td><td>DeepSeek</td><td><span class="score"><span class="score-bar"><i style="width:63%"></i></span><b>65.8</b></span></td><td>¥1</td><td>¥4</td><td>榜内性价比最高；AMD / EdgeOne 免费档在列</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>Google</td><td><span class="score"><span class="score-bar"><i style="width:54%"></i></span><b>63.5</b></span></td><td>¥10.01</td><td>¥50.03</td><td>Google AI Studio 提供免费额度</td></tr>
+      <tr><td>GLM-5.3</td><td>Z.ai</td><td><span class="score"><span class="score-bar"><i style="width:52%"></i></span><b>62.9</b></span></td><td>¥8</td><td>¥28</td><td>开源权重；多平台免费档在列</td></tr>
+      <tr><td>Qwen3.8 Max 0902</td><td>Alibaba</td><td><span class="score"><span class="score-bar"><i style="width:51%"></i></span><b>62.8</b></span></td><td>¥12</td><td>¥36</td><td>阿里云百炼新人送 100 万 Token</td></tr>
+      <tr><td>MiMo-V2.6-Pro</td><td>Xiaomi</td><td><span class="score"><span class="score-bar"><i style="width:50%"></i></span><b>62.4</b></span></td><td>¥3</td><td>¥6</td><td>开源权重；AMD 免费档含同系 Flash</td></tr>
+      <tr><td>Claude Haiku 5.5</td><td>Anthropic</td><td><span class="score"><span class="score-bar"><i style="width:49%"></i></span><b>62.2</b></span></td><td>¥0.67</td><td>¥3.34</td><td>榜内最低输入价之一，无免费额度</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
 <section class="table-wrap">
-  <h2>快速对比</h2>
+  <h2>平台快速对比</h2>
   <table>
     <thead>
       <tr><th>平台</th><th>免费方式</th><th>代表免费模型</th><th>OpenAI 兼容</th><th>适合场景</th></tr>
     </thead>
     <tbody>
-      <tr><td>硅基流动</td><td>免费模型 + 赠送额度</td><td>Qwen2.5-7B / GLM-4-9B</td><td class="yes">是</td><td>国内应用首选</td></tr>
-      <tr><td>智谱 BigModel</td><td>永久免费模型</td><td>GLM-4-Flash / 4V-Flash</td><td class="yes">是</td><td>对话与多模态</td></tr>
-      <tr><td>DeepSeek</td><td>赠送额度 / 开源自部署</td><td>DeepSeek-V3 / R1</td><td class="yes">是</td><td>推理与代码</td></tr>
-      <tr><td>腾讯云混元</td><td>免费轻量模型</td><td>Hunyuan-Lite</td><td class="yes">是</td><td>腾讯云生态</td></tr>
-      <tr><td>百度千帆</td><td>免费轻量模型</td><td>ERNIE-Speed / Lite</td><td class="yes">是</td><td>中文任务</td></tr>
-      <tr><td>讯飞星火</td><td>免费轻量模型</td><td>Spark Lite</td><td class="no">否</td><td>国内直连</td></tr>
-      <tr><td>OpenRouter</td><td>:free 模型免费</td><td>R1 / Llama 3.3 70B Free</td><td class="yes">是</td><td>一个 Key 多模型</td></tr>
-      <tr><td>Google AI Studio</td><td>免费调用额度</td><td>Gemini Flash 系列</td><td class="yes">是</td><td>原型 / 个人项目</td></tr>
-      <tr><td>Groq</td><td>免费开发者层</td><td>Llama / Mixtral</td><td class="yes">是</td><td>低延迟推理</td></tr>
+      <tr><td>硅基流动</td><td>标免费模型 + ¥16 券</td><td>PaddleOCR-VL-1.5 / BGE / Kolors</td><td class="yes">是</td><td>国内直连、多模态免费</td></tr>
+      <tr><td>智谱 BigModel</td><td>Flash 免费档 + 5000 万 Token</td><td>GLM-5.3-Flash / GLM-5V-Turbo</td><td class="yes">是</td><td>对话与多模态</td></tr>
+      <tr><td>DeepSeek</td><td>新用户赠金 / 极低价</td><td>deepseek-flash (V4.1 Flash 1017)</td><td class="yes">是</td><td>推理与代码</td></tr>
+      <tr><td>腾讯云混元</td><td>新人 100 万 / 云开发 10 亿 Token</td><td>hy4 / deepseek-v4.1-flash</td><td class="yes">是</td><td>腾讯云生态</td></tr>
+      <tr><td>百度千帆</td><td>免费轻量模型 + ¥20 券</td><td>ERNIE 轻量系列</td><td class="yes">是</td><td>中文任务</td></tr>
+      <tr><td>讯飞星火</td><td>Spark Lite 免费层</td><td>Spark Lite</td><td class="no">否</td><td>国内直连</td></tr>
+      <tr><td>魔搭社区</td><td>每日 200 魔粒</td><td>API-Inference 闪电标记开源模型</td><td class="yes">是</td><td>每日稳定免费 API</td></tr>
+      <tr><td>OpenRouter</td><td>:free 模型免费</td><td>DeepSeek V4.1 Flash Free 等</td><td class="yes">是</td><td>一个 Key 多模型</td></tr>
+      <tr><td>Google AI Studio</td><td>免费调用额度</td><td>Gemini 3.8 Flash</td><td class="yes">是</td><td>原型 / 个人项目</td></tr>
+      <tr><td>Groq</td><td>免费开发者层</td><td>Llama / Qwen / GPT-OSS</td><td class="yes">是</td><td>低延迟推理</td></tr>
       <tr><td>Mistral AI</td><td>Free Tier</td><td>Mistral Small / Nemo</td><td class="yes">是</td><td>开源生态</td></tr>
-      <tr><td>NVIDIA NIM</td><td>赠送 Credits</td><td>Llama / Qwen / DeepSeek</td><td class="yes">是</td><td>模型试验场</td></tr>
+      <tr><td>NVIDIA NIM</td><td>赠送 Credits</td><td>Llama / Qwen / Nemotron 3</td><td class="yes">是</td><td>模型试验场</td></tr>
+      <tr><td>AMD Token Factory</td><td>每日免费模型 API</td><td>GLM-5.3-Flash / Qwen3.8-27B</td><td class="yes">是</td><td>每日免费、国内可访问</td></tr>
+      <tr><td>Cloudflare Workers AI</td><td>每天 1 万 Neurons</td><td>Qwen3.8-27B / GPT-OSS 120B</td><td class="yes">是</td><td>超额即停、不扣费</td></tr>
     </tbody>
   </table>
 </section>
 
 <footer>
-  <p>免费大模型平台导航 · 收录国内外 11 个可免费接入的大模型 API 平台 · 单文件静态页面，随时打开 <code>index.html</code> 即可查看</p>
-  <p style="margin-top:6px;">免费政策可能调整，请以各平台官方说明为准 · 数据整理于 2026-11</p>
+  <p>免费大模型平台导航 · 14 个平台 + 15 项免费额度 + 模型能力参考 · 单文件静态页面，打开 <code>index.html</code> 即可查看</p>
+  <p style="margin-top:6px;">数据参考 <a href="https://aihot.news/leaderboard" target="_blank" rel="noopener">AIHOT 模型榜</a> 与 <a href="https://aihot.news/free-tokens" target="_blank" rel="noopener">Token 羊毛</a>（2026-11-09）· 免费政策随时调整，领取与接入前请以官方说明为准</p>
 </footer>
 
 <script>
   (function () {
-    var buttons = document.querySelectorAll('.filter-bar button');
-    var cards = document.querySelectorAll('#grid .card');
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        buttons.forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        var cat = btn.getAttribute('data-cat');
-        cards.forEach(function (card) {
-          var show = cat === 'all' || card.getAttribute('data-cat') === cat;
-          card.classList.toggle('hidden', !show);
+    var search = document.getElementById('search');
+    var count = document.getElementById('count');
+    var gridEmpty = document.getElementById('gridEmpty');
+    var perkEmpty = document.getElementById('perkEmpty');
+    var platformCards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
+    var perks = Array.prototype.slice.call(document.querySelectorAll('#perkGrid .perk'));
+    var state = { platform: 'all', perk: 'all', q: '' };
+
+    function matches(item, cat, isPerk) {
+      if (state.q && item.textContent.toLowerCase().indexOf(state.q) === -1) return false;
+      if (cat === 'all') return true;
+      var raw = item.getAttribute('data-cat') || '';
+      return isPerk ? raw.split(' ').indexOf(cat) !== -1 : raw === cat;
+    }
+
+    function render() {
+      var pv = 0, kv = 0;
+      platformCards.forEach(function (c) {
+        var show = matches(c, state.platform, false);
+        c.classList.toggle('hidden', !show);
+        if (show) pv++;
+      });
+      perks.forEach(function (c) {
+        var show = matches(c, state.perk, true);
+        c.classList.toggle('hidden', !show);
+        if (show) kv++;
+      });
+      gridEmpty.hidden = pv !== 0;
+      perkEmpty.hidden = kv !== 0;
+      count.textContent = '显示 ' + pv + ' / ' + platformCards.length + ' 个平台 · ' + kv + ' / ' + perks.length + ' 项额度';
+    }
+
+    function bind(scope, key) {
+      var btns = document.querySelectorAll('.filter-bar[data-scope="' + scope + '"] button');
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          state[key] = btn.getAttribute('data-cat');
+          render();
         });
       });
+    }
+
+    bind('platform', 'platform');
+    bind('perk', 'perk');
+    search.addEventListener('input', function () {
+      state.q = search.value.trim().toLowerCase();
+      render();
     });
+    render();
   })();
 </script>
 </body>
