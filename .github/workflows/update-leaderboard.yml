@@ -1,0 +1,50 @@
+name: Sync AIHOT Leaderboard
+
+on:
+  schedule:
+    # 每 6 小时同步一次（UTC 0:20 / 6:20 / 12:20 / 18:20，覆盖北京时间 20:06 的日更）
+    - cron: '20 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: leaderboard-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch and validate leaderboard
+        run: |
+          for i in 1 2 3; do
+            if python scripts/update_leaderboard.py; then exit 0; fi
+            echo "attempt $i failed"
+            [ "$i" -lt 3 ] && sleep 20
+          done
+          echo "::error::AIHOT leaderboard fetch/validation failed 3 times; page structure may have changed"
+          exit 1
+
+      - name: Sync in-page offline snapshot
+        run: python scripts/sync_snapshot.py
+
+      - name: Commit if data changed
+        run: |
+          if git diff --quiet -- data/leaderboard.json index.html; then
+            echo "No leaderboard change"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/leaderboard.json index.html
+          git commit -m "chore(data): sync AIHOT leaderboard $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
