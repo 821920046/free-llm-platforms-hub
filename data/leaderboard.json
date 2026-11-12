@@ -1,7 +1,7 @@
 {
   "source": "https://aihot.news/leaderboard",
-  "sourceUpdatedAt": "2026-11-12 08:07",
-  "fetchedAt": "2026-11-12T08:49:12+08:00",
+  "sourceUpdatedAt": "2026-11-12 20:05",
+  "fetchedAt": "2026-11-12T23:24:07+08:00",
   "evals": 56,
   "orgs": 16,
   "fxDate": "2026-11-11",
@@ -98,7 +98,7 @@
       "cache": 1.33,
       "in": 26.68,
       "out": 133.41,
-      "score": 71.9,
+      "score": 72.0,
       "oss": false,
       "tags": [],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
@@ -220,6 +220,25 @@
     },
     {
       "rank": 14,
+      "slug": "hy-4",
+      "name": "Hy4",
+      "maker": "Tencent",
+      "date": "2026-11-04",
+      "evals": 23,
+      "coverage": 53,
+      "cache": 0.3,
+      "in": 6.0,
+      "out": 18.0,
+      "score": 66.8,
+      "oss": false,
+      "tags": [
+        "cn",
+        "free"
+      ],
+      "freeNote": "腾讯云新人 100 万 / 云开发 10 亿 Token"
+    },
+    {
+      "rank": 15,
       "slug": "gpt-5-6-sol",
       "name": "GPT-5.6 Sol",
       "maker": "OpenAI",
@@ -235,7 +254,7 @@
       "freeNote": "暂无直接免费额度，可看本站低价替代"
     },
     {
-      "rank": 15,
+      "rank": 16,
       "slug": "muse-ember",
       "name": "Muse Ember",
       "maker": "Meta",
@@ -249,25 +268,6 @@
       "oss": false,
       "tags": [],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
-    },
-    {
-      "rank": 16,
-      "slug": "hy-4",
-      "name": "Hy4",
-      "maker": "Tencent",
-      "date": "2026-11-04",
-      "evals": 22,
-      "coverage": 50,
-      "cache": 0.3,
-      "in": 6.0,
-      "out": 18.0,
-      "score": 66.1,
-      "oss": false,
-      "tags": [
-        "cn",
-        "free"
-      ],
-      "freeNote": "腾讯云新人 100 万 / 云开发 10 亿 Token"
     },
     {
       "rank": 17,
@@ -316,7 +316,7 @@
       "cache": 1.0,
       "in": 8.34,
       "out": 28.35,
-      "score": 64.1,
+      "score": 64.2,
       "oss": false,
       "tags": [],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
@@ -505,8 +505,8 @@
       "name": "Inkling 2 Small",
       "maker": "Thinking Machines Lab",
       "date": "2026-11-05",
-      "evals": 28,
-      "coverage": 58,
+      "evals": 29,
+      "coverage": 61,
       "cache": 0.2,
       "in": 2.0,
       "out": 6.67,
