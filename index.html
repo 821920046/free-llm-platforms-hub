@@ -362,7 +362,7 @@ tr.rank-row.hidden,tr.rank-row.folded{display:none;}
 }
 .expand-btn:hover{background:rgba(34,211,238,.07);}
 
-/* ===== 厂商卡册 · Collectible Cards（借鉴 token-club 票券收藏卡） ===== */
+/* ===== 厂商卡册 · 双面收藏卡（front 摘要 / back 详情，数据来自站内核实额度） ===== */
 .album{
   max-width:var(--maxw);margin:32px auto 0;padding:22px 22px 16px;
   background:var(--panel);border:1px solid var(--line);
@@ -370,7 +370,6 @@ tr.rank-row.hidden,tr.rank-row.folded{display:none;}
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   position:relative;overflow:hidden;
 }
-/* 卡册内衬点阵底纹 */
 .album::before{
   content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   background-image:radial-gradient(rgba(126,168,230,.16) .8px,transparent .8px);
@@ -388,30 +387,36 @@ tr.rank-row.hidden,tr.rank-row.folded{display:none;}
   border:1px solid var(--line);border-radius:14px;padding:16px 14px 14px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 0 30px rgba(0,0,0,.22);
 }
-.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:15px 12px;}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:16px 12px;}
 
-.mini{
-  position:relative;height:144px;border-radius:12px;
-  background:linear-gradient(155deg,rgba(38,52,86,.94),rgba(14,21,40,.96));
+.mini{position:relative;height:170px;perspective:1000px;-webkit-perspective:1000px;}
+.mini-flip{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;-webkit-transform-style:preserve-3d;
+  transition:transform .58s cubic-bezier(.2,.75,.25,1);
+}
+.mini.flipped .mini-flip{transform:rotateY(180deg);-webkit-transform:rotateY(180deg);}
+.mini-face{
+  position:absolute;inset:0;border-radius:12px;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
   border:1.5px solid var(--tier,#3b4c6b);
-  padding:9px 9px 17px;display:flex;flex-direction:column;align-items:center;
-  cursor:pointer;overflow:hidden;
-  transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s,border-color .22s,filter .22s;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 14px rgba(0,0,0,.3);
+  transition:box-shadow .2s;
 }
-/* 两侧菱形装饰（票券卡标记） */
-.mini::before,.mini::after{
+.mini-face::before,.mini-face::after{
   content:"";position:absolute;top:53%;width:6px;height:6px;
-  background:var(--tier,#64748b);opacity:.8;
-  transform:translateY(-50%) rotate(45deg);
-  box-shadow:0 0 7px rgba(251,191,36,.35);pointer-events:none;
+  background:var(--tier,#64748b);opacity:.8;transform:translateY(-50%) rotate(45deg);
+  box-shadow:0 0 7px rgba(251,191,36,.35);pointer-events:none;z-index:6;
 }
-.mini::before{left:3px;} .mini::after{right:3px;}
-.mini:hover{
-  transform:translateY(-6px) scale(1.02);z-index:4;
-  box-shadow:0 18px 32px rgba(0,0,0,.46),0 0 22px rgba(34,211,238,.28);
+.mini-face::before{left:3px;} .mini-face::after{right:3px;}
+.mini:hover .mini-face{box-shadow:0 16px 30px rgba(0,0,0,.46),0 0 22px rgba(34,211,238,.28);z-index:5;}
+
+/* ---- 正面 ---- */
+.mini-front{
+  display:flex;flex-direction:column;align-items:center;padding:9px 9px 17px;
+  background:linear-gradient(155deg,rgba(38,52,86,.94),rgba(14,21,40,.96));
+  cursor:pointer;
 }
-/* logo 徽章：彩色旋转发光花环 */
 .emblem{position:relative;width:50px;height:50px;flex-shrink:0;margin:3px 0 5px;order:1;}
 .emblem .halo{
   position:absolute;inset:-7px;border-radius:50%;
@@ -421,10 +426,7 @@ tr.rank-row.hidden,tr.rank-row.folded{display:none;}
   filter:drop-shadow(0 0 6px rgba(34,211,238,.6));
   animation:haloSpin 9s linear infinite;opacity:.9;pointer-events:none;
 }
-.emblem::after{
-  content:"";position:absolute;inset:-2px;border-radius:50%;
-  border:1px dashed rgba(255,255,255,.38);pointer-events:none;
-}
+.emblem::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:1px dashed rgba(255,255,255,.38);pointer-events:none;}
 @keyframes haloSpin{to{transform:rotate(360deg)}}
 .mini:hover .emblem .halo{animation-duration:3s;filter:drop-shadow(0 0 10px rgba(34,211,238,.95));}
 .mini .logo{
@@ -442,43 +444,79 @@ tr.rank-row.hidden,tr.rank-row.folded{display:none;}
 .table-logo img{width:17px;height:17px;object-fit:contain;display:block;}
 .mini .name{order:2;font-size:11.5px;font-weight:700;color:#e3ecff;text-align:center;line-height:1.2;margin-bottom:3px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .mini .quota{order:3;font:700 11px/1.25 var(--mono);color:var(--cyan);text-align:center;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 10px rgba(34,211,238,.3);}
-.mini .gems{position:absolute;top:6px;right:6px;font-size:8px;letter-spacing:-1px;color:#fbbf24;text-shadow:0 0 6px rgba(251,191,36,.55);}
-.mini .check{position:absolute;left:5px;top:5px;width:18px;height:18px;border-radius:50%;border:1px solid var(--line2);background:#152038;color:var(--dim);font-size:10px;line-height:16px;text-align:center;padding:0;cursor:pointer;z-index:5;transition:background .18s,box-shadow .18s,color .18s;}
+.mini .gems{position:absolute;top:6px;right:6px;font-size:8px;letter-spacing:-1px;color:#fbbf24;text-shadow:0 0 6px rgba(251,191,36,.55);z-index:5;}
+.mini .check{position:absolute;left:5px;top:5px;width:18px;height:18px;border-radius:50%;border:1px solid var(--line2);background:#152038;color:var(--dim);font-size:10px;line-height:16px;text-align:center;padding:0;cursor:pointer;z-index:7;transition:background .18s,box-shadow .18s,color .18s;}
 .mini.collected .check{background:var(--free);border-color:var(--free);color:#04121c;box-shadow:0 0 12px rgba(52,211,153,.55);}
-.mini.collected{box-shadow:inset 0 2px 0 var(--free),inset 0 1px 0 rgba(255,255,255,.06),0 8px 18px rgba(0,0,0,.3);}
-.mini .stack{position:absolute;right:5px;bottom:18px;background:#152038;border:1px solid var(--line2);border-radius:99px;padding:1px 6px;font:700 9px/1.4 var(--mono);color:#cbd9f2;}
-.mini .card-no{position:absolute;left:6px;bottom:18px;font:600 8px/1 var(--mono);color:var(--dim);letter-spacing:.5px;}
-.mini .foot{position:absolute;left:0;right:0;bottom:0;height:15px;border-top:1px dashed var(--line2);display:flex;align-items:center;justify-content:center;font:600 7px/1 var(--mono);letter-spacing:1.2px;color:var(--dim);background:rgba(0,0,0,.2);}
-.mini.dim{filter:grayscale(.6);opacity:.72;border-style:dashed;}
-.mini.dim .halo{animation-play-state:paused;opacity:.35;}
-.mini.dim:hover{filter:none;opacity:1;}
-.mini.t3{
-  border-color:transparent;
-  background:linear-gradient(155deg,rgba(40,48,80,.96),rgba(16,24,44,.96)) padding-box,
-              linear-gradient(135deg,#fbbf24,#f472b6,#22d3ee,#a78bfa,#34d399,#fbbf24) border-box;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px rgba(168,85,247,.22);
+.mini.collected .mini-front{box-shadow:inset 0 2px 0 var(--free),inset 0 1px 0 rgba(255,255,255,.06),0 8px 18px rgba(0,0,0,.3);}
+.mini .stack{position:absolute;right:5px;bottom:18px;background:#152038;border:1px solid var(--line2);border-radius:99px;padding:1px 6px;font:700 9px/1.4 var(--mono);color:#cbd9f2;z-index:5;}
+.mini .card-no{position:absolute;left:6px;bottom:18px;font:600 8px/1 var(--mono);color:var(--dim);letter-spacing:.5px;z-index:5;}
+.mini .foot{position:absolute;left:0;right:0;bottom:0;height:15px;border-top:1px dashed var(--line2);display:flex;align-items:center;justify-content:center;font:600 7px/1 var(--mono);letter-spacing:1.2px;color:var(--dim);background:rgba(0,0,0,.2);z-index:5;}
+.mini .flip-hint{position:absolute;right:6px;top:5px;font:600 7px/1 var(--mono);color:var(--dim);z-index:5;}
+
+/* ---- 背面 ---- */
+.mini-back{
+  transform:rotateY(180deg);-webkit-transform:rotateY(180deg);
+  display:flex;flex-direction:column;padding:8px 9px 7px;gap:3px;
+  background:linear-gradient(155deg,rgba(22,32,58,.98),rgba(9,15,30,.99));
 }
+.back-top{font:600 8px/1.2 var(--mono);color:var(--dim);letter-spacing:.3px;display:flex;justify-content:space-between;align-items:center;}
+.back-state{font:700 8px/1 var(--mono);color:#fbbf24;}
+.mini.collected .back-state{color:var(--free);}
+.back-title{font-size:11px;font-weight:700;color:#e3ecff;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px;}
+.back-row{display:flex;gap:5px;font-size:8.5px;line-height:1.25;align-items:flex-start;}
+.back-row .k{flex:0 0 22px;color:var(--dim);white-space:nowrap;}
+.back-row .v{flex:1;min-width:0;color:#cbd9f2;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.back-verified{font:7.5px/1.1 var(--mono);color:var(--dim);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.back-actions{display:flex;gap:4px;margin-top:2px;}
+.back-go,.back-check,.back-filter{
+  border:1px solid var(--line2);border-radius:6px;background:rgba(126,168,230,.08);
+  color:var(--cyan);font:700 8.5px/1 var(--mono);padding:5px 2px;text-align:center;
+  cursor:pointer;text-decoration:none;flex:1;transition:background .15s,border-color .15s;
+}
+.back-go:hover,.back-check:hover,.back-filter:hover{background:rgba(34,211,238,.16);border-color:var(--cyan);text-decoration:none;}
+.back-check{color:var(--free);border-color:rgba(52,211,153,.4);}
+.mini.collected .back-check{color:var(--dim);border-color:var(--line2);}
+.back-filter{flex:0 0 18px;padding:0;color:var(--muted);height:18px;line-height:16px;}
+.back-return{text-align:center;font:600 7px/1 var(--mono);color:var(--dim);}
+
+/* ---- 稀有度 ---- */
+.mini.t3 .mini-front{border-color:transparent;background:linear-gradient(155deg,rgba(40,48,80,.96),rgba(16,24,44,.96)) padding-box,linear-gradient(135deg,#fbbf24,#f472b6,#22d3ee,#a78bfa,#34d399,#fbbf24) border-box;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px rgba(168,85,247,.22);}
+.mini.t3 .mini-back{border-color:transparent;background:linear-gradient(155deg,rgba(24,34,60,.99),rgba(10,16,32,.99)) padding-box,linear-gradient(135deg,#fbbf24,#f472b6,#22d3ee,#a78bfa,#34d399,#fbbf24) border-box;}
 .mini.t3 .halo{opacity:1;}
-.mini.t2{border-color:#38bdf8;}
-.mini.t1{border-color:#4b5b78;}
+.mini.t2 .mini-face{border-color:#38bdf8;}
+.mini.t1 .mini-face{border-color:#4b5b78;}
+
 .album-foot{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:12px;}
 .album-foot .dot{width:7px;height:7px;border-radius:999px;background:var(--line2);}
 .album-foot .dot.on{width:18px;background:var(--cyan);box-shadow:0 0 12px rgba(34,211,238,.5);}
 .album-legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--dim);}
 .album-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+
+.mini.dim{filter:grayscale(.6);opacity:.72;}
+.mini.dim .mini-face{border-style:dashed;}
+.mini.dim .halo{animation-play-state:paused;opacity:.35;}
+.mini.dim:hover{filter:none;opacity:1;}
+
 [data-theme="light"] .album::before{background-image:radial-gradient(rgba(30,64,120,.12) .8px,transparent .8px);}
 [data-theme="light"] .album-tray{background:linear-gradient(160deg,#f4f7fc,#eef2f9);box-shadow:inset 0 1px 0 #fff;}
-[data-theme="light"] .mini{background:linear-gradient(155deg,#fff,#f3f0e8);border-color:var(--tier,#cbd5e1);box-shadow:inset 0 1px 0 #fff,0 4px 12px rgba(30,64,120,.1);}
+[data-theme="light"] .mini-front{background:linear-gradient(155deg,#fff,#f3f0e8);border-color:var(--tier,#cbd5e1);box-shadow:inset 0 1px 0 #fff,0 4px 12px rgba(30,64,120,.1);}
+[data-theme="light"] .mini-back{background:linear-gradient(155deg,#f7f9fd,#eef2f9);border-color:var(--tier,#cbd5e1);}
 [data-theme="light"] .mini .name{color:#334155;}
 [data-theme="light"] .mini .quota{color:#0e7490;text-shadow:none;}
 [data-theme="light"] .mini .emblem::after{border-color:rgba(30,64,120,.22);}
 [data-theme="light"] .mini .check,[data-theme="light"] .mini .stack{background:#fff;color:#475569;}
 [data-theme="light"] .mini .foot{background:rgba(30,64,120,.04);color:#94a3b8;}
-[data-theme="light"] .mini .card-no{color:#94a3b8;}
-[data-theme="light"] .mini.collected{box-shadow:inset 0 2px 0 var(--free),0 4px 12px rgba(30,64,120,.12);}
-[data-theme="light"] .mini.t3{background:linear-gradient(155deg,#fff,#f3f0e8) padding-box,linear-gradient(135deg,#f59e0b,#ec4899,#22d3ee,#a78bfa,#34d399,#f59e0b) border-box;box-shadow:0 4px 14px rgba(30,64,120,.12);}
-[data-theme="light"] .mini.t2{border-color:#38bdf8;}
-[data-theme="light"] .mini.t1{border-color:#cbd5e1;}
+[data-theme="light"] .mini .card-no,[data-theme="light"] .mini .flip-hint,[data-theme="light"] .back-top,[data-theme="light"] .back-return,[data-theme="light"] .back-verified{color:#94a3b8;}
+[data-theme="light"] .mini .gems{color:#b45309;text-shadow:none;}
+[data-theme="light"] .back-title,[data-theme="light"] .back-row .v{color:#334155;}
+[data-theme="light"] .back-row .k{color:#64748b;}
+[data-theme="light"] .back-go,[data-theme="light"] .back-check,[data-theme="light"] .back-filter{background:#fff;color:#0e7490;}
+[data-theme="light"] .back-check{color:#059669;}
+[data-theme="light"] .mini.collected .mini-front{box-shadow:inset 0 2px 0 var(--free),0 4px 12px rgba(30,64,120,.12);}
+[data-theme="light"] .mini.t3 .mini-front{background:linear-gradient(155deg,#fff,#f3f0e8) padding-box,linear-gradient(135deg,#f59e0b,#ec4899,#22d3ee,#a78bfa,#34d399,#f59e0b) border-box;box-shadow:0 4px 14px rgba(30,64,120,.12);}
+[data-theme="light"] .mini.t3 .mini-back{background:linear-gradient(155deg,#fff,#f3f0e8) padding-box,linear-gradient(135deg,#f59e0b,#ec4899,#22d3ee,#a78bfa,#34d399,#f59e0b) border-box;}
+[data-theme="light"] .mini.t2 .mini-face{border-color:#38bdf8;}
+[data-theme="light"] .mini.t1 .mini-face{border-color:#cbd5e1;}
 [data-theme="light"] .album-legend{color:var(--muted);}
 
 /* ===== 页脚 ===== */
@@ -499,10 +537,11 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
   .brand-sub{display:none;}
   .album{padding:14px 12px;}
   .album-grid{grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:7px;}
-  .mini{height:132px;}
+  .mini{height:174px;}
   .emblem{width:44px;height:44px;}
   .mini .logo{width:44px;height:44px;}
-  .album-grid{gap:12px 9px;}
+  .album-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px 9px;}
+
   main.grid{grid-template-columns:1fr;}
   .perk-grid{grid-template-columns:1fr;}
   .section-head h2{font-size:19px;}
@@ -553,7 +592,7 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
 <section class="album" id="album">
   <div class="album-head">
     <h2>厂商卡册</h2>
-    <span class="progress"><b id="litCount">0</b> / <span id="totalCount">22</span> 张已收集 · 点卡片筛选该厂商，点亮左上角圆点打卡记录「已领」</span>
+    <span class="progress"><b id="litCount">0</b> / <span id="totalCount">22</span> 张已收集 · 点卡片翻面看详情与领取条件，背页可去领 / 记录 / 筛选，左上角圆点快速打卡</span>
   </div>
   <div class="album-tray">
     <div class="album-grid" id="albumGrid">
@@ -1048,35 +1087,97 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
       img.addEventListener('error', onError);
       return img;
     }
+    // 卡背详情：只取站内已核实的额度榜 / 平台卡数据，不编造
+    var PERK_FUZZY = [
+      ['WorkBuddy 体验版','WorkBuddy'],['MiniMax Code','MiniMax'],['AMD Token Factory','AMD'],
+      ['Cloudflare Workers AI','Cloudflare'],['魔搭社区','魔搭社区'],['智谱 AutoClaw','智谱'],
+      ['硅基流动','硅基流动'],['百度千帆','百度千帆'],['超算互联网','超算互联网'],
+      ['阿里云百炼','阿里云百炼'],['商汤日日新','商汤'],['EdgeOne Makers','EdgeOne'],
+      ['书生·端砚','书生'],['Rime','Rime']
+    ];
+    function buildAlbumDetail() {
+      var map = {};
+      platformCards.forEach(function (c) {
+        var v = c.getAttribute('data-vendor');
+        if (!v || map[v]) return;
+        var btn = c.querySelector('.btn-row .btn');
+        var chips = c.querySelector('.chips');
+        map[v] = {
+          url: btn ? btn.href : '',
+          free: (c.querySelector('.free-tag') || {}).textContent || '',
+          cond: chips ? chips.textContent.replace(/\s+/g, ' ').trim() : ''
+        };
+      });
+      [].slice.call(document.querySelectorAll('#perkGrid .perk')).forEach(function (p) {
+        var h = (p.querySelector('h3') || {}).textContent || '';
+        var v = '';
+        for (var i = 0; i < PERK_FUZZY.length; i++) {
+          if (h.indexOf(PERK_FUZZY[i][0]) !== -1) { v = PERK_FUZZY[i][1]; break; }
+        }
+        if (!v) return;
+        var d = map[v] || (map[v] = {});
+        d.value = (p.querySelector('.perk-value') || {}).textContent || '';
+        d.cycle = (p.querySelector('.cycle') || {}).textContent || '';
+        d.models = (p.querySelector('.perk-models') || {}).textContent || '';
+        d.cond = (p.querySelector('.perk-cond') || {}).textContent.replace(/\s+/g, ' ').trim();
+        d.verified = (p.querySelector('.verified') || {}).textContent || '';
+        var go = p.querySelector('.go');
+        if (go) d.url = go.href;
+      });
+      return map;
+    }
+    var albumDetail = {};
+
     function injectLogos() {
       // 卡册：字母缩写保留为加载失败时的兜底
       albumCards.forEach(function (c, idx) {
-        var box = c.querySelector('.logo');
+        var fl = document.createElement('div'); fl.className = 'mini-flip';
+        var front = document.createElement('div'); front.className = 'mini-face mini-front';
+        var back = document.createElement('div'); back.className = 'mini-face mini-back';
+        while (c.firstChild) front.appendChild(c.firstChild);
+        fl.appendChild(front); fl.appendChild(back); c.appendChild(fl);
+        var box = front.querySelector('.logo');
         if (!box) return;
         var fallback = box.textContent.trim();
         box.setAttribute('data-fallback', fallback);
-        // 稀有度决定两侧菱形颜色
+        var v = c.getAttribute('data-vendor');
         var tier = c.classList.contains('t3') ? '#fbbf24'
                  : c.classList.contains('t2') ? '#38bdf8' : '#64748b';
         c.style.setProperty('--tier', tier);
-        // 徽章：光环 + logo
-        var emblem = document.createElement('span');
-        emblem.className = 'emblem';
-        var halo = document.createElement('i');
-        halo.className = 'halo';
-        emblem.appendChild(halo);
-        emblem.appendChild(box);
-        c.insertBefore(emblem, c.firstChild);
-        // 收藏编号 + 票券凭证条
-        var no = document.createElement('span');
-        no.className = 'card-no';
+        var emblem = document.createElement('span'); emblem.className = 'emblem';
+        var halo = document.createElement('i'); halo.className = 'halo';
+        emblem.appendChild(halo); emblem.appendChild(box);
+        front.insertBefore(emblem, front.firstChild);
+        var no = document.createElement('span'); no.className = 'card-no';
         no.textContent = 'NO.' + ('00' + (idx + 1)).slice(-3);
-        c.appendChild(no);
-        var foot = document.createElement('span');
-        foot.className = 'foot';
+        front.appendChild(no);
+        var foot = document.createElement('span'); foot.className = 'foot';
         foot.textContent = 'FREE CLAIM \u00b7 \u514d\u8d39\u9886\u53d6';
-        c.appendChild(foot);
-        var v = c.getAttribute('data-vendor');
+        front.appendChild(foot);
+        var hint = document.createElement('span'); hint.className = 'flip-hint';
+        hint.textContent = '\u7ffb\u9762\u770b \u21bb';
+        front.appendChild(hint);
+        // 卡背：数据来自 albumDetail（站内核实数据）
+        var d = albumDetail[v] || {};
+        var safe = function (x) { return esc(x || '\u2014'); };
+        var claimUrl = d.url || '#';
+        var value = d.value || d.free || front.querySelector('.quota').textContent;
+        var cond = d.cond || d.free || '\u4ee5\u5b98\u65b9\u9875\u9762\u4e3a\u51c6';
+        var models = d.models || '\u8be6\u89c1\u5b98\u65b9\u8bf4\u660e';
+        var verified = d.verified || '\u4ee5\u5b98\u65b9\u9875\u9762\u4e3a\u51c6';
+        back.innerHTML =
+          '<div class="back-top"><span>' + no.textContent + ' // \u80cc\u9762</span><span class="back-state">\u672a\u9886\u53d6</span></div>' +
+          '<div class="back-title" title="' + safe(v) + '">' + safe(v) + '</div>' +
+          '<div class="back-row"><span class="k">\u62ff\u5230</span><span class="v" title="' + safe(value) + '">' + safe(value) + '</span></div>' +
+          '<div class="back-row"><span class="k">\u9002\u7528</span><span class="v" title="' + safe(models) + '">' + safe(models) + '</span></div>' +
+          '<div class="back-row"><span class="k">\u6761\u4ef6</span><span class="v" title="' + safe(cond) + '">' + safe(cond) + '</span></div>' +
+          '<div class="back-verified">' + safe(verified) + ' \u00b7 AIHOT \u6574\u7406</div>' +
+          '<div class="back-actions">' +
+            '<a class="back-go" href="' + claimUrl + '" target="_blank" rel="noopener">\u53bb\u9886 \u2197</a>' +
+            '<button type="button" class="back-check">\u9886\u5230\u4e86\uff0c\u8bb0\u5f55 \u2713</button>' +
+          '</div>' +
+          '<button type="button" class="back-filter">\u7b5b\u9009\u8be5\u5382\u5546</button>' +
+          '<div class="back-return">\u518d\u70b9\u4e00\u6b21\u56de\u6b63\u9762 \u21bb</div>';
         if (!LOGOS[v]) return;
         var img = makeLogoImg(v, function () {
           img.style.display = 'none';
@@ -1086,6 +1187,7 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
         box.textContent = '';
         box.appendChild(img);
       });
+
       // 平台卡片标题
       platformCards.forEach(function (c) {
         var h = c.querySelector('h3');
@@ -1204,6 +1306,10 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
         var s = c.querySelector('.stack');
         var base = parseInt(s.getAttribute('data-base'), 10) || 1;
         s.textContent = '×' + (base + (on ? 1 : 0));
+        var st = c.querySelector('.back-state');
+        if (st) st.textContent = on ? '已记录 ✓' : '未领取';
+        var bc = c.querySelector('.back-check');
+        if (bc) bc.textContent = on ? '已领 ✓ · 取消' : '标记已领 ✓';
       });
       litCount.textContent = lit;
       totalCount.textContent = albumCards.length;
@@ -1218,21 +1324,42 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
       render();
       document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    function markCollected(c) {
+      var v = c.getAttribute('data-vendor');
+      if (collected[v]) delete collected[v]; else collected[v] = 1;
+      try { localStorage.setItem(KEY, JSON.stringify(collected)); } catch (err) {}
+      paintAlbum();
+    }
     albumCards.forEach(function (c) {
+      function flip() { c.classList.toggle('flipped'); }
+      // 事件委托到卡片容器：正面/背面 DOM 由 injectLogos 生成，绑定时可能尚未就位
       c.addEventListener('click', function (e) {
-        if (!e.target.classList.contains('check')) activateVendor(c);
+        if (e.target.closest('.check, .back-go, .back-check, .back-filter')) {
+          // 具体按钮各自处理（见下）
+          return;
+        }
+        if (e.target.closest('.mini-back')) c.classList.remove('flipped');
+        else flip();
       });
       c.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateVendor(c); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
       });
-      c.querySelector('.check').addEventListener('click', function (e) {
-        e.stopPropagation();
-        var v = c.getAttribute('data-vendor');
-        if (collected[v]) delete collected[v]; else collected[v] = 1;
-        try { localStorage.setItem(KEY, JSON.stringify(collected)); } catch (err) {}
-        paintAlbum();
-      });
+      // 按钮在生成后绑定：用一次性延迟到 DOM 就绪
+      function bindBtns() {
+        var chk = c.querySelector('.check');
+        var back = c.querySelector('.mini-back');
+        if (!chk || !back) { setTimeout(bindBtns, 0); return; }
+        chk.addEventListener('click', function (e) { e.stopPropagation(); markCollected(c); });
+        var bc = back.querySelector('.back-check');
+        if (bc) bc.addEventListener('click', function (e) { e.stopPropagation(); markCollected(c); });
+        var bf = back.querySelector('.back-filter');
+        if (bf) bf.addEventListener('click', function (e) {
+          e.stopPropagation(); c.classList.remove('flipped'); activateVendor(c);
+        });
+      }
+      bindBtns();
     });
+    paintAlbum();
 
     bind('platform', 'platform');
     bind('perk', 'perk');
@@ -1376,6 +1503,7 @@ footer code{font-family:var(--mono);color:var(--cyan);font-size:12px;}
     }
 
     initSync();
+    albumDetail = buildAlbumDetail();
     injectLogos();
     paintAlbum();
     render();
