@@ -1,7 +1,7 @@
 {
   "source": "https://aihot.news/leaderboard",
-  "sourceUpdatedAt": "2026-11-21 02:06",
-  "fetchedAt": "2026-11-21T04:29:26+08:00",
+  "sourceUpdatedAt": "2026-11-21 14:05",
+  "fetchedAt": "2026-11-21T15:21:07+08:00",
   "evals": 50,
   "orgs": 15,
   "fxDate": "2026-11-20",
@@ -66,7 +66,7 @@
       "cache": 2.67,
       "in": 53.42,
       "out": 267.11,
-      "score": 74.9,
+      "score": 75.0,
       "oss": false,
       "tags": [],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
@@ -146,7 +146,7 @@
       "cache": 0.67,
       "in": 13.36,
       "out": 66.78,
-      "score": 72.5,
+      "score": 72.4,
       "oss": false,
       "tags": [],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
@@ -226,7 +226,7 @@
       "cache": 0.5,
       "in": 10.0,
       "out": 30.0,
-      "score": 69.5,
+      "score": 69.4,
       "oss": false,
       "tags": [
         "cn",
@@ -431,7 +431,7 @@
       "cache": 1.0,
       "in": 10.02,
       "out": 50.08,
-      "score": 63.9,
+      "score": 64.0,
       "oss": false,
       "tags": [
         "free"
@@ -476,22 +476,6 @@
     },
     {
       "rank": 29,
-      "slug": "gpt-5-5",
-      "name": "GPT-5.5",
-      "maker": "OpenAI",
-      "date": "2026-04-23",
-      "evals": 26,
-      "coverage": 63,
-      "cache": 3.34,
-      "in": 33.39,
-      "out": 200.33,
-      "score": 63.3,
-      "oss": false,
-      "tags": [],
-      "freeNote": "暂无直接免费额度，可看本站低价替代"
-    },
-    {
-      "rank": 30,
       "slug": "kimi-k-3",
       "name": "Kimi K3",
       "maker": "Moonshot AI",
@@ -510,6 +494,22 @@
       "freeNote": "暂无直接免费额度，可看本站低价替代"
     },
     {
+      "rank": 30,
+      "slug": "gpt-5-5",
+      "name": "GPT-5.5",
+      "maker": "OpenAI",
+      "date": "2026-04-23",
+      "evals": 26,
+      "coverage": 63,
+      "cache": 3.34,
+      "in": 33.39,
+      "out": 200.33,
+      "score": 63.3,
+      "oss": false,
+      "tags": [],
+      "freeNote": "暂无直接免费额度，可看本站低价替代"
+    },
+    {
       "rank": 31,
       "slug": "qwen-3-8-max-0902",
       "name": "Qwen3.8 Max 0902",
@@ -520,7 +520,7 @@
       "cache": 1.5,
       "in": 12.0,
       "out": 36.0,
-      "score": 63.2,
+      "score": 63.1,
       "oss": false,
       "tags": [
         "cn",
@@ -604,24 +604,6 @@
     },
     {
       "rank": 36,
-      "slug": "inkling-2-small",
-      "name": "Inkling 2 Small",
-      "maker": "Thinking Machines Lab",
-      "date": "2026-11-05",
-      "evals": 30,
-      "coverage": 69,
-      "cache": 0.2,
-      "in": 2.0,
-      "out": 6.68,
-      "score": 62.5,
-      "oss": true,
-      "tags": [
-        "oss"
-      ],
-      "freeNote": "暂无直接免费额度，可看本站低价替代"
-    },
-    {
-      "rank": 37,
       "slug": "grok-4-6",
       "name": "Grok 4.6",
       "maker": "xAI",
@@ -634,6 +616,24 @@
       "score": 62.5,
       "oss": false,
       "tags": [],
+      "freeNote": "暂无直接免费额度，可看本站低价替代"
+    },
+    {
+      "rank": 37,
+      "slug": "inkling-2-small",
+      "name": "Inkling 2 Small",
+      "maker": "Thinking Machines Lab",
+      "date": "2026-11-05",
+      "evals": 30,
+      "coverage": 69,
+      "cache": 0.2,
+      "in": 2.0,
+      "out": 6.68,
+      "score": 62.4,
+      "oss": true,
+      "tags": [
+        "oss"
+      ],
       "freeNote": "暂无直接免费额度，可看本站低价替代"
     },
     {
@@ -799,22 +799,6 @@
     },
     {
       "rank": 47,
-      "slug": "gpt-6-luna",
-      "name": "GPT-6 Luna",
-      "maker": "OpenAI",
-      "date": "2026-09-22",
-      "evals": 46,
-      "coverage": 97,
-      "cache": 0.0668,
-      "in": 0.67,
-      "out": 3.34,
-      "score": 59.5,
-      "oss": false,
-      "tags": [],
-      "freeNote": "暂无直接免费额度，可看本站低价替代"
-    },
-    {
-      "rank": 48,
       "slug": "deepseek-v-4-pro-20260813",
       "name": "DeepSeek V4 Pro 0813",
       "maker": "DeepSeek",
@@ -832,6 +816,22 @@
         "free"
       ],
       "freeNote": "DeepSeek 新用户赠金 / V4.1 Flash 空闲时段 ¥1 输入"
+    },
+    {
+      "rank": 48,
+      "slug": "gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "maker": "OpenAI",
+      "date": "2026-09-22",
+      "evals": 46,
+      "coverage": 97,
+      "cache": 0.0668,
+      "in": 0.67,
+      "out": 3.34,
+      "score": 59.5,
+      "oss": false,
+      "tags": [],
+      "freeNote": "暂无直接免费额度，可看本站低价替代"
     },
     {
       "rank": 49,
